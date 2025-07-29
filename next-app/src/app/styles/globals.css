@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sans: var(--font-manrope), var(--font-open-sans), var(--font-roboto), ui-serif, sans-serif;
 }
 
 @theme inline {
@@ -24,14 +25,20 @@
   }
 }
 
-/*body {*/
-/*  background: var(--background);*/
-/*  color: var(--foreground);*/
-/*  font-family: Arial, Helvetica, sans-serif;*/
-/*}*/
-
 body {
-  background: black;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  background: white;
+  color: black;
+  font-family: var(--font-sans);
+}
+
+.btn {
+  @apply inline-block px-6 py-2 rounded-xl text-white bg-teal-800 hover:bg-teal-700 transition font-bold;
+}
+
+.title-teal {
+  @apply text-3xl font-bold mb-6 text-teal-800;
+}
+
+.title-black {
+  @apply text-3xl font-bold mb-6 text-black;
 }

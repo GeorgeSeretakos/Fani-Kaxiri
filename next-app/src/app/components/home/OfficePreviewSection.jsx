@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function OfficePreviewSection() {
   const previewImages = [
@@ -12,15 +13,27 @@ export default function OfficePreviewSection() {
 
   return (
     <section className="py-12">
-      <div className="max-w-6xl mx-auto px-4 text-center">
-        {/*<h2 className="text-4xl font-bold mb-6">Ο Χώρος μας</h2>*/}
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="title-teal">Ο χώρος μας</h2>
+          <div className="max-w-2xl mb-8">
+            <p className="text-gray-700 text-lg">
+              Φροντίζουμε ο χώρος μας να σε κάνει να νιώθεις άνετα και ευχάριστα κάθε φορά που έρχεσαι.
+            </p>
+            <div className="mt-4">
+              <Link href="/office" className="btn">
+                Μάθε περισσότερα
+              </Link>
+            </div>
+          </div>
+        </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {previewImages.map((src, idx) => (
             <div
               key={idx}
-              className="relative w-full aspect-[4/3] shadow-lg rounded-xl overflow-hidden bg-white"
+              className="relative w-full aspect-[5/3] shadow-lg overflow-hidden bg-white"
             >
               <Image
                 src={src}
@@ -31,13 +44,6 @@ export default function OfficePreviewSection() {
             </div>
           ))}
         </div>
-
-        {/*<Link*/}
-        {/*  href="/office"*/}
-        {/*  className="inline-block mt-4 bg-teal-700 text-white px-6 py-2 rounded hover:bg-teal-800 transition"*/}
-        {/*>*/}
-        {/*  Δείτε Περισσότερα*/}
-        {/*</Link>*/}
       </div>
     </section>
   );

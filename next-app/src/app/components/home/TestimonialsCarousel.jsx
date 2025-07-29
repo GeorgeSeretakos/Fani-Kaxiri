@@ -9,41 +9,34 @@ import "swiper/css/pagination";
 
 export default function TestimonialsCarousel() {
   return (
-    <section
-      className="relative bg-cover bg-center py-12 h-[70vh] flex justify-center items-center"
-      style={{ backgroundImage: "url('/images/food/2.jpg')" }}
+    <div
+      className="relative bg-cover bg-center flex justify-center items-center"
     >
-      {/* Optional dark overlay */}
-      <div className="absolute inset-0 bg-black/50 z-0"></div>
-
       {/* Content */}
-      <div className="relative z-10">
-        <div className="max-w-6xl mx-auto text-center my-12 px-4">
-          <h2 className="text-3xl font-bold text-white">
-            Ξεκίνα{" "}
-            <span className="text-teal-400 font-handwriting">
-              την αλλαγή σήμερα
-            </span>
-          </h2>
-          {/*<h3 className="mt-2 text-lg text-gray-200">Είπαν για εμάς</h3>*/}
+      <div className="z-10 w-full px-4">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="title-black">Τι λένε για εμάς</h2>
+          <p className="text-gray-600 text-lg mt-2 max-w-xl">
+            Μερικά λόγια από ανθρώπους που μας εμπιστεύτηκαν και είδαν τη ζωή τους να αλλάζει.
+          </p>
         </div>
 
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto my-12 px-4">
           <Swiper
             modules={[Pagination, Autoplay]}
             spaceBetween={20}
             slidesPerView={1}
-            pagination={{ clickable: true }}
+            pagination={{clickable: true}}
             loop={true}
-            autoplay={{ delay: 4000 }}
+            autoplay={{delay: 4000}}
             breakpoints={{
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              768: {slidesPerView: 2},
+              1024: {slidesPerView: 3},
             }}
           >
             {testimonials.map((r, idx) => (
-              <SwiperSlide key={idx}>
-                <div className="bg-white shadow rounded-xl p-4 text-left h-full flex flex-col justify-between">
+              <SwiperSlide key={idx} className="flex">
+                <div className="bg-white shadow rounded-xl p-4 text-left flex flex-col justify-between flex-1">
                   <div className="flex items-center gap-2">
                     {r.avatar ? (
                       <img
@@ -87,13 +80,17 @@ export default function TestimonialsCarousel() {
 
       <style>
         {`
+          .swiper-slide {
+            display: flex;
+            height: auto;
+          }
+
           .swiper-pagination-bullet {
             background: white !important;
             opacity: 0.4;
           }
           .swiper-pagination {
             position: relative !important;
-            margin-top: 1rem;
             text-align: center;
           }
           .swiper-pagination-bullet-active {
@@ -102,6 +99,6 @@ export default function TestimonialsCarousel() {
           }
         `}
       </style>
-    </section>
+    </div>
   );
 }

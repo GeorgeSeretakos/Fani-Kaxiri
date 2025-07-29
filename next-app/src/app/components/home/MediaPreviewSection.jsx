@@ -25,7 +25,7 @@ export default function MediaPreviewSection() {
 
   return (
     <section className="py-12">
-      <div className="max-w-6xl mx-auto px-4 text-center">
+      <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-gray-800 mb-4">Παρουσία στα Media</h2>
         <p className="text-lg text-gray-600 mb-8">
           Μάθετε περισσότερα για τη δράση μας στην τηλεόραση, τα podcasts και την αρθρογραφία.

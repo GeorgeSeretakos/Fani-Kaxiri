@@ -48,10 +48,11 @@ export default function CompaniesCarousel() {
   }, [instanceRef]);
 
   return (
-    <section className="py-12">
-      <h2 className="text-3xl font-bold text-center mb-8">
-        Μας Εμπιστεύθηκαν
-      </h2>
+    <section className="max-w-6xl mx-auto px-4 py-12">
+      <h2 className="title-black">Εταιρείες που μας εμπιστεύθηκαν</h2>
+      <p className="text-lg text-gray-700 mb-8">
+        Στο πέρασμα των χρόνων, πάνω από 30 εταιρείες μας εμπιστεύθηκαν για την ευεξία του προσωπικού τους.
+      </p>
 
       <div ref={sliderRef} className="keen-slider px-4">
         {logos.map((src, index) => (
@@ -59,7 +60,7 @@ export default function CompaniesCarousel() {
             key={index}
             className="keen-slider__slide flex justify-center items-center"
           >
-            <div className="relative w-40 h-30 bg-white rounded-lg">
+            <div className="relative w-40 h-30 rounded-lg">
               <Image
                 src={src}
                 alt={`Company logo ${index + 1}`}

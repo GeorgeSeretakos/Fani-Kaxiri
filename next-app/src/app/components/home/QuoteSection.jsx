@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function QuoteSection() {
   return (
-    <section className="relative h-[70vh]">
+    <section className="relative h-[60vh]">
       {/* Background Image */}
       <Image
         src="/images/food/5.jpg"

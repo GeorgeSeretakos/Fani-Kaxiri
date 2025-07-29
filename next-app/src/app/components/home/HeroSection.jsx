@@ -9,13 +9,13 @@ export default function HeroSection() {
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/40 z-10"></div>
+      <div className="absolute inset-0  z-10"></div>
 
       {/* Text content */}
       <div className="relative z-20 flex flex-col justify-center h-full max-w-7xl mx-auto px-4 text-white">
         <div className="max-w-lg">
           <h1 className="text-4xl md:text-5xl font-serif mb-4">
-            Tonia Kaparelioti
+            Τόνια Καπαρελιώτη
           </h1>
           <p className="text-lg md:text-xl">
             Διαιτολόγος – Διατροφολόγος

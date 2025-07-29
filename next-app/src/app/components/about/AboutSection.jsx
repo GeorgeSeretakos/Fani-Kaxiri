@@ -1,6 +1,6 @@
-export default function AboutSection({ title, text, image, reverse = false, bgColor="" }) {
+export default function AboutSection({ title, text, image, reverse = false, imageDimensions = "" }) {
   return (
-    <section className={`${bgColor} w-full px-4 py-12 rounded-xl`}>
+    <section className="w-full px-4 py-12 rounded-xl">
       <div
         className={`flex flex-col md:flex-row max-w-6xl mx-auto ${
           reverse ? "md:flex-row-reverse" : ""
@@ -11,16 +11,18 @@ export default function AboutSection({ title, text, image, reverse = false, bgCo
           <img
             src={image}
             alt={title}
-            className="rounded-lg shadow-md w-full h-auto object-cover"
+            className={`rounded-lg shadow-md object-cover ${imageDimensions || "w-full"}`}
           />
         </div>
 
         {/* Text */}
         <div className="flex-1">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">{title}</h2>
-          <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
-            {text}
-          </p>
+          <h2 className="title-black">{title}</h2>
+          <div className="leading-relaxed space-y-4">
+            {text.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p> // JSX paragraph
+            ))}
+          </div>
         </div>
       </div>
     </section>

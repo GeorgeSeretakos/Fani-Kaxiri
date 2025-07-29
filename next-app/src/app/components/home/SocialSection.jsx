@@ -5,7 +5,7 @@ export default function SocialSection() {
     <section className="py-12">
       <div className="flex flex-col items-center gap-4">
         {/* top line */}
-        <div className="w-16 h-1 bg-white"></div>
+        <div className="w-16 h-1 bg-black"></div>
 
         {/* icons */}
         <div className="flex gap-4">
@@ -64,7 +64,7 @@ export default function SocialSection() {
         </div>
 
         {/* bottom line */}
-        <div className="w-16 h-1 bg-white"></div>
+        <div className="w-16 h-1 bg-black"></div>
       </div>
     </section>
   );

@@ -1,14 +1,7 @@
-.advantage {
-    /*background: linear-gradient(to top, #000000, #121212);*/
-    color: #fff;
-    padding-left: 5%;
-    padding-right: 5%;
-}
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 0;
+    /*padding: 2rem 0;*/
 }
 
 .advantage-grid {

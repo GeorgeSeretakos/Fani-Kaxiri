@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function StatsSection() {
   return (
-    <section className="relative h-[500px]">
+    <section className="relative h-[60vh]">
       {/* Background image */}
       <Image
         src="/images/office/29.jpg"
