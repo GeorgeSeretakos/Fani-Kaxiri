@@ -2,23 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-  const [hydrated, setHydrated] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    // This code only runs on the client after hydration
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-    setHydrated(true);
-  }, []);
-
-  // Avoid rendering anything auth-related until hydration is done
-  if (!hydrated) return null;
-
   return (
     <nav className="bg-white text-black shadow right-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,11 +27,7 @@ export default function Navbar() {
             <NavItem href="/services" label="Υπηρεσίες" />
             <NavItem href="/blog" label="Blog" />
             <NavItem href="/contact" label="Επικοινωνία" />
-            {isLoggedIn ? (
-              <NavItem href="/personal-info" label="Τα Στοιχεία Μου" />
-            ) : (
-              <NavItem href="/login" label="Σύνδεση" />
-            )}
+            <NavItem href="/login" label="Σύνδεση" />
           </div>
         </div>
       </div>
@@ -61,12 +43,12 @@ function NavItem({ href, label }) {
     <Link
       href={href}
       className={`inline-flex items-center px-2 py-1 rounded-md transition whitespace-nowrap
-        ${isActive ? "text-teal-800 border-b-2 border-teal-800" : "hover:text-teal-800 hover:border-b-2 hover:border-teal-800"}
+        ${isActive
+        ? "text-teal-800 border-b-2 border-teal-800"
+        : "hover:text-teal-800 hover:border-b-2 hover:border-teal-800"}
       `}
     >
       {label}
     </Link>
   );
 }
-
-

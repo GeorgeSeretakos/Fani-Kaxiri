@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Footer from "../components/Footer";
-import IntroSection from "../components/about/IntroSection"; // το generic component
+import IntroSection from "../components/about/IntroSection";
+import Navbar from "../components/Navbar"; // το generic component
 
 const officeImages = [
   "/images/office/4.jpg",
@@ -18,8 +19,8 @@ const officeImages = [
 export default function OfficePage() {
   return (
     <>
+      <Navbar />
       <main className="min-h-screen">
-        {/* IntroSection */}
         <IntroSection
           image="/images/office/13.jpg"
           title="Ο Χώρος μας"
@@ -47,9 +48,6 @@ export default function OfficePage() {
           }
         />
 
-
-
-        {/* Φωτογραφίες */}
         <div className="grid gap-6 md:grid-cols-1 px-4 py-12 md:px-12">
           {officeImages.map((src, index) => (
             <div

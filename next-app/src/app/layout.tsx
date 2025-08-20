@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           antialiased
         `}
         >
-        <Navbar />
+        {/*<Navbar />*/}
         <main>{children}</main>
         </body>
         </html>

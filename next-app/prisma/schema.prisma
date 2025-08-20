@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+enum DocumentType {
+  DIET
+  MEASUREMENT
+  PHOTO
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  password  String? // null until user sets it (first login flow)
+  firstName String
+  lastName  String
+  phone     String?
+
+  role      Role     @default(CLIENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  documents Document[]
+}
+
+model Document {
+  id          String       @id @default(uuid())
+  name        String
+  type        DocumentType
+  description String?
+  date        DateTime     @default(now())
+
+  storagePath String // 👈 supabase key (e.g. "clients/4/photo_123.png")
+
+  ownerId Int
+  owner   User @relation(fields: [ownerId], references: [id])
+}

@@ -9,10 +9,12 @@ import CompaniesCarousel from "@/app/components/home/CompaniesCarousel";
 import Footer from "@/app/components/Footer";
 import ServicesSection from "@/app/components/services/ServicesSection";
 import BlogPreviewSection from "@/app/components/home/BlogPreviewSection";
+import Navbar from "@/app/components/Navbar";
 
 export default function Home() {
   return (
       <main>
+          <Navbar />
           <HeroSection />
           <PhilosophySection />
           <AboutOwnerSection />
