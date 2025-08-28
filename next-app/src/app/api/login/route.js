@@ -40,6 +40,7 @@ export async function POST(req) {
       JSON.stringify({
         status: "success",
         role: user.role,
+        id: user.id,
       }),
       { status: 200 }
     );

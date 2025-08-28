@@ -16,3 +16,26 @@ export async function verifyAdmin() {
     return null;
   }
 }
+
+
+export async function verifyClient(expectedId = null) {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
+
+    if (!token) return null;
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (decoded.role !== "CLIENT") return null;
+
+    // If an expectedId is passed, enforce ownership
+    if (expectedId && decoded.id !== Number(expectedId)) {
+      return null;
+    }
+
+    return decoded; // contains { id, email, role }
+  } catch {
+    return null;
+  }
+}

@@ -1,56 +1,40 @@
-"use client";
-
+import { verifyAdmin } from "../api/_lib/auth";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import UnauthorizedRedirect from "@/app/components/UnauthorizedRedirect";
 
-export default function AdminLayout({ children }) {
-  const router = useRouter();
+export default async function AdminLayout({ children }) {
+  const admin = await verifyAdmin();
 
-  const handleLogout = async () => {
-    try {
-      const res = await fetch("/api/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-
-      if (!res.ok) throw new Error("Logout failed");
-
-      // Redirect to login page
-      router.push("/login");
-    } catch (err) {
-      console.error(err);
-      alert("Logout failed");
-    }
+  if (!admin) {
+    return <UnauthorizedRedirect />;
   }
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white p-6 space-y-6">
-        <h2 className="text-xl font-bold">Nutritionist Admin</h2>
-        <nav className="space-y-2">
-          <Link href="/admin" className="block hover:text-gray-300">Clients</Link>
-          <Link href="/admin/documents" className="block hover:text-gray-300">Documents</Link>
-        </nav>
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      {/* Top Bar */}
+      <header className="bg-gray-800 text-white shadow px-6 py-4 flex justify-between items-center">
+        <h1 className="text-xl font-bold tracking-wide">Σύστημα Διαχείρισης Πελατών</h1>
 
-      </aside>
-
-      {/* Main content */}
-      <div className="flex-1 flex flex-col">
-        {/* Top bar */}
-        <header className="bg-white shadow p-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Admin Panel</h1>
-          <button
-            onClick={handleLogout}
-            className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+        <nav className="flex items-center space-x-6">
+          <Link
+            href="/admin"
+            className="hover:text-gray-300 transition-colors"
           >
-            Logout
-          </button>
-        </header>
+            Όλοι οι πελάτες
+          </Link>
+          <form action="/api/logout" method="post">
+            <button
+              type="submit"
+              className="px-4 py-1.5 rounded-md bg-red-500 hover:bg-red-600 transition-colors"
+            >
+              Αποσύνδεση
+            </button>
+          </form>
+        </nav>
+      </header>
 
-        {/* Page content */}
-        <main className="flex-1 p-6 bg-gray-50">{children}</main>
-      </div>
+      {/* Main Content */}
+      <main className="flex-1 p-6">{children}</main>
     </div>
   );
 }

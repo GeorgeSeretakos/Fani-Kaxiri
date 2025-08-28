@@ -1,15 +1,37 @@
 "use client";
-
-import { useState } from "react";
-import HeaderTabs from "./HeaderTabs";
-import DocumentList from "./DocumentList";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
 
-export default function ClientDetail({ client }) {
+import HeaderTabs from "./HeaderTabs";
+import UploadModal from "./UploadModal";
+import EditClientModal from "./EditClientModal";
+import ClientInfoCard from "./ClientInfoCard";
+import DateFilter from "./DateFilter";
+import DocumentList from "./DocumentList";
+import PhotoGrid from "./PhotoGrid";
+
+import { deleteClient, updateClient } from "../../../services/clients";
+import {
+  requestUpload,
+  uploadToStorage,
+  getDownloadUrl,
+  deleteDocument,
+} from "../../../services/documents";
+
+export default function ClientDetail({ client, mode = "admin" }) {
   const [activeTab, setActiveTab] = useState("diet");
   const [clientData, setClientData] = useState(client);
+  const [groupedDocs, setGroupedDocs] = useState({});
+  const [dateFilter, setDateFilter] = useState(null);
+
   const [isEditing, setIsEditing] = useState(false);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
+
+  const [file, setFile] = useState(null);
+  const [docType, setDocType] = useState("DIET");
+  const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
   const [formData, setFormData] = useState({
     firstName: client.firstName || "",
@@ -17,222 +39,201 @@ export default function ClientDetail({ client }) {
     phone: client.phone || "",
   });
 
-  const [file, setFile] = useState(null);
-  const [docType, setDocType] = useState("DIET");
-  const [description, setDescription] = useState("");
+  // inside ClientDetail
+  useEffect(() => {
+    if (isUploadOpen) {
+      // modal just opened → reset everything
+      setFile(null);
+      setDocType("DIET");
+      setDescription("");
+      setDate(new Date().toISOString().split("T")[0]);
+      setStatus("");
+    }
+  }, [isUploadOpen]);
 
-  // --- Delete client ---
-  const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this client and all documents?")) return;
 
+  // --- Group docs by month/year ---
+  useEffect(() => {
+    const grouped = {};
+
+    // normalize + sort all docs by date desc first
+    const sortedDocs = [...(clientData.documents || [])].sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    );
+
+    for (const d of sortedDocs) {
+      if (activeTab !== "all" && d.type.toLowerCase() !== activeTab) continue;
+
+      if (dateFilter) {
+        const docDate = new Date(d.date);
+        if (dateFilter.from && docDate < new Date(dateFilter.from)) continue;
+        if (dateFilter.to && docDate > new Date(dateFilter.to)) continue;
+      }
+
+      const key = format(new Date(d.date), "yyyy-MM");
+      if (!grouped[key]) grouped[key] = [];
+      grouped[key].push(d);
+    }
+
+    setGroupedDocs(grouped);
+  }, [clientData.documents, activeTab, dateFilter]);
+
+
+  // --- Handlers (admin only) ---
+  const handleDeleteClient = async () => {
+    if (!confirm("Θέλετε σίγουρα να διαγράψετε τον πελάτη?\n" +
+      "\n" +
+      "Πρόκειται να διαγράψετε οριστικά τα προσωπικά στοιχεία " +
+      "καθώς επίσης και όλα τα αρχεία που αφορούν τον πελάτη!")) return;
     try {
-      const res = await fetch(`/api/admin/clients/${clientData.id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-
-      if (!res.ok) throw new Error("Failed to delete client");
-
-      alert("Client deleted successfully!");
+      await deleteClient(clientData.id);
+      alert("Ο πελάτης διαγράφηκε επιτυχώς!");
       window.location.href = "/admin";
     } catch (err) {
       console.error(err);
-      alert("Error deleting client");
+      alert("Σφάλμα κατά τη διαγραφή πελάτη");
     }
   };
 
-  // --- Save client edit ---
   const handleEditSave = async () => {
     try {
-      setStatus("Saving...");
-      const res = await fetch(`/api/admin/clients/${clientData.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!res.ok) throw new Error("Failed to update client");
-
-      const updated = await res.json();
+      setStatus("Αποθήκευση...");
+      const updated = await updateClient(clientData.id, formData);
       setFormData({
         firstName: updated.firstName,
         lastName: updated.lastName,
         phone: updated.phone,
       });
       setClientData(updated);
-      setStatus("✅ Saved successfully!");
+      setStatus("✅ Αποθηκεύτηκε με επιτυχία!");
       setIsEditing(false);
     } catch (err) {
       console.error(err);
-      setStatus("❌ Error saving client");
+      setStatus("❌ Σφάλμα στην αποθήκευση");
     }
   };
 
-  // --- Upload document ---
   const handleUpload = async (e) => {
     e.preventDefault();
-    if (!file) return alert("Select a file first");
-
+    if (!file) return setStatus("Επιλέξτε αρχείο.");
     try {
-      setStatus("Uploading...");
-
-      // 1. Request signed upload URL
-      const res = await fetch(`/api/admin/clients/${clientData.id}/documents/upload`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fileName: file.name,
-          type: docType,
-          description,
-        }),
+      setStatus("Δημιουργία upload URL...");
+      const { uploadUrl, doc } = await requestUpload({
+        clientId: clientData.id,
+        fileName: file.name,
+        date: date,
+        type: docType,
+        description,
       });
-
-      const { uploadUrl, doc } = await res.json();
-
-      // 2. Upload file to Supabase storage
-      await fetch(uploadUrl, {
-        method: "PUT",
-        body: file,
-        headers: { "Content-Type": file.type },
-      });
-
-      // 3. Update local state
+      setStatus("Ανέβασμα αρχείου...");
+      await uploadToStorage(uploadUrl, file);
       setClientData((prev) => ({
         ...prev,
-        documents: [...(prev.documents || []), doc],
+        documents: [
+          ...(prev.documents || []),
+          { ...doc, date: new Date(doc.date).toISOString() },
+        ],
       }));
-
-      setFile(null);
-      setDescription("");
-      setStatus("✅ Document uploaded!");
+      setStatus("✅ Επιτυχής μεταφόρτωση!");
+      setIsUploadOpen(false);
     } catch (err) {
       console.error(err);
-      setStatus("❌ Upload failed");
+      setStatus("❌ Σφάλμα στην μεταφόρτωση");
+    }
+  };
+
+  const handleDownload = async (docId) => {
+    try {
+      const { url } = await getDownloadUrl(docId);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = docId || "downloaded-file";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error("Download error:", err);
+    }
+  };
+
+  const handleDeleteDocument = async (id) => {
+    if (!confirm("Διαγραφή εγγράφου;")) return;
+    try {
+      await deleteDocument(id);
+      setClientData((prev) => ({
+        ...prev,
+        documents: prev.documents.filter((d) => d.id !== id),
+      }));
+    } catch (err) {
+      console.error("Delete failed", err);
     }
   };
 
   return (
     <div className="space-y-6">
-      {/* Client Info */}
-      <div className="bg-white p-4 rounded shadow flex justify-between items-center">
-        <div>
-          <h2 className="text-xl font-semibold">
-            {clientData.firstName} {clientData.lastName}
-          </h2>
-          <p className="text-gray-600">{clientData.email}</p>
-          <p className="text-gray-600">{clientData.phone}</p>
-          <p className="text-sm text-gray-500">
-            Created: {format(new Date(clientData.createdAt), "dd/MM/yyyy")}
-          </p>
-        </div>
-        <div className="space-x-2">
-          <button
-            onClick={() => setIsEditing(true)}
-            className="px-3 py-1 bg-green-500 text-white rounded"
-          >
-            Edit
-          </button>
-          <button
-            onClick={handleDelete}
-            className="px-3 py-1 bg-red-500 text-white rounded"
-          >
-            Delete Client
-          </button>
-        </div>
-      </div>
+      {/* Client Info Card */}
+      <ClientInfoCard
+        client={clientData}
+        mode={mode} // 👈 περάσαμε το mode
+        {...(mode === "admin"
+          ? {
+            onEdit: () => setIsEditing(true),
+            onDelete: handleDeleteClient,
+            onUpload: () => setIsUploadOpen(true),
+          }
+          : {})}
+      />
+
 
       {/* Tabs */}
       <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      {status && <p className="text-sm">{status}</p>}
 
-      {/* Upload Form */}
-      <form onSubmit={handleUpload} className="bg-white p-4 rounded shadow space-y-3">
-        <h3 className="font-semibold">Upload Document</h3>
-        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-        <select
-          value={docType}
-          onChange={(e) => setDocType(e.target.value)}
-          className="border p-2 rounded"
-        >
-          <option value="DIET">Δίαιτα</option>
-          <option value="MEASUREMENT">Μετρήσεις</option>
-          <option value="PHOTO">Φωτογραφία</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Description"
-          className="border p-2 rounded w-full"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">
-          Upload
-        </button>
-        {status && <p className="text-sm mt-2">{status}</p>}
-      </form>
+      {/* Date Filter */}
+      <DateFilter setDateFilter={setDateFilter} />
 
-      {/* Documents */}
-      <DocumentList
-        docs={
-          clientData.documents?.filter(
-            (d) => d.type.toLowerCase() === activeTab
-          ) || []
-        }
-      />
+      <div className="mt-6">
+        {activeTab === "photo" ? (
+          <PhotoGrid
+            photos={clientData.documents?.filter((d) => d.type === "PHOTO")}
+            {...(mode === "admin" ? { onDelete: handleDeleteDocument } : {})}
+          />
+        ) : (
+          <DocumentList
+            documents={groupedDocs}
+            onDownload={handleDownload}
+            {...(mode === "admin" ? { onDelete: handleDeleteDocument } : {})}
+          />
+        )}
+      </div>
 
-      {/* Edit Modal */}
-      {isEditing && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded shadow-lg w-96">
-            <h2 className="text-xl font-bold mb-4">Edit Client</h2>
-            <input
-              type="text"
-              name="firstName"
-              placeholder="First Name"
-              value={formData.firstName}
-              onChange={(e) =>
-                setFormData({ ...formData, firstName: e.target.value })
-              }
-              className="border p-2 rounded w-full mb-2"
-            />
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              value={formData.lastName}
-              onChange={(e) =>
-                setFormData({ ...formData, lastName: e.target.value })
-              }
-              className="border p-2 rounded w-full mb-2"
-            />
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone"
-              value={formData.phone}
-              onChange={(e) =>
-                setFormData({ ...formData, phone: e.target.value })
-              }
-              className="border p-2 rounded w-full mb-2"
-            />
+      {/* Admin-only modals */}
+      {mode === "admin" && (
+        <>
+          <EditClientModal
+            isOpen={isEditing}
+            onClose={() => setIsEditing(false)}
+            formData={formData}
+            setFormData={setFormData}
+            onSave={handleEditSave}
+            status={status}
+          />
 
-            <div className="flex justify-end space-x-2 mt-4">
-              <button
-                onClick={() => setIsEditing(false)}
-                className="px-3 py-1 bg-gray-300 rounded"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleEditSave}
-                className="px-3 py-1 bg-blue-600 text-white rounded"
-              >
-                Save
-              </button>
-            </div>
-
-            {status && <p className="mt-2 text-sm">{status}</p>}
-          </div>
-        </div>
+          <UploadModal
+            isOpen={isUploadOpen}
+            onClose={() => setIsUploadOpen(false)}
+            onSubmit={handleUpload}
+            file={file}
+            setFile={setFile}
+            docType={docType}
+            setDocType={setDocType}
+            description={description}
+            setDescription={setDescription}
+            status={status}
+            date={date}
+            setDate={setDate}
+          />
+        </>
       )}
     </div>
   );

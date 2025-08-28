@@ -40,12 +40,12 @@ export default function AdminPage() {
     <div className="space-y-6">
       {/* Header with Add Button */}
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold">Clients</h2>
+        <h2 className="text-xl font-semibold">Πελάτες</h2>
         <button
           onClick={() => setShowModal(true)}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
-          + Add Client
+          + Νέος πελάτης
         </button>
       </div>
 

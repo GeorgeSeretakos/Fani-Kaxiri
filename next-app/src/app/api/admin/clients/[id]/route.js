@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { verifyAdmin } from "../../../_lib/auth";
+import prismaClient from "../../../../../../lib/prismaClient";
+import supabaseServer from "../../../../../../lib/supabaseServer";
 
 const prisma = new PrismaClient();
 
@@ -32,21 +34,46 @@ export async function GET(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
-  const admin = await verifyAdmin(); // ✅ must await
-  if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const admin = await verifyAdmin();
+  if (!admin) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
-  const { id } = await params;
+  const { id } = params;
   const clientId = Number(id);
 
   try {
-    await prisma.document.deleteMany({ where: { ownerId: clientId } });
-    await prisma.user.delete({ where: { id: clientId } });
+    // 1. Πάρε όλα τα filePaths του client
+    const docs = await prismaClient.document.findMany({
+      where: { ownerId: clientId },
+      select: { filePath: true },
+    });
+
+    // 2. Σβήσε τα από το Storage (αν υπάρχουν)
+    if (docs.length > 0) {
+      const paths = docs.map((d) => d.filePath);
+      const { error: storageError } = await supabaseServer
+        .storage
+        .from("documents")
+        .remove(paths);
+
+      if (storageError) {
+        console.error("Storage delete error:", storageError);
+        return NextResponse.json({ error: "Failed to delete files from storage" }, { status: 500 });
+      }
+    }
+
+    // 3. Σβήσε τα από το DB
+    await prismaClient.document.deleteMany({ where: { ownerId: clientId } });
+    await prismaClient.user.delete({ where: { id: clientId } });
+
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error(err);
+    console.error("Delete client error:", err);
     return NextResponse.json({ error: "Failed to delete client" }, { status: 500 });
   }
 }
+
 
 export async function PUT(req, { params }) {
   const admin = await verifyAdmin();

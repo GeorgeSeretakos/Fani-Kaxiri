@@ -55,7 +55,7 @@ export default function AddClientModal({ onClose, onClientAdded }) {
         <form onSubmit={handleSubmit} className="space-y-3">
           <input
             type="text"
-            placeholder="First Name"
+            placeholder="Όνομα"
             value={form.firstName}
             onChange={(e) => setForm({ ...form, firstName: e.target.value })}
             className="w-full border p-2 rounded"
@@ -63,7 +63,7 @@ export default function AddClientModal({ onClose, onClientAdded }) {
           />
           <input
             type="text"
-            placeholder="Last Name"
+            placeholder="Επώνυμο"
             value={form.lastName}
             onChange={(e) => setForm({ ...form, lastName: e.target.value })}
             className="w-full border p-2 rounded"
@@ -79,7 +79,7 @@ export default function AddClientModal({ onClose, onClientAdded }) {
           />
           <input
             type="email"
-            placeholder="Confirm Email"
+            placeholder="Επιβεβαίωση email"
             value={form.confirmEmail}
             onChange={(e) => setForm({ ...form, confirmEmail: e.target.value })}
             className="w-full border p-2 rounded"
@@ -87,7 +87,7 @@ export default function AddClientModal({ onClose, onClientAdded }) {
           />
           <input
             type="text"
-            placeholder="Phone"
+            placeholder="Τηλέφωνο"
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
             className="w-full border p-2 rounded"
@@ -99,14 +99,14 @@ export default function AddClientModal({ onClose, onClientAdded }) {
               onClick={onClose}
               className="px-3 py-1 border rounded"
             >
-              Cancel
+              Ακύρωση
             </button>
             <button
               type="submit"
               disabled={loading}
               className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
-              {loading ? "Adding..." : "Add Client"}
+              {loading ? "Loading..." : "Προσθήκη"}
             </button>
           </div>
         </form>

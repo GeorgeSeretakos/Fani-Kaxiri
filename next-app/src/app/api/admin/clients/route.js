@@ -5,7 +5,7 @@ import { verifyAdmin } from "../../_lib/auth";
 const prisma = new PrismaClient();
 
 // ✅ Existing GET
-export async function GET(req) {
+export async function GET() {
   const user = verifyAdmin();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -18,6 +18,7 @@ export async function GET(req) {
       lastName: true,
       phone: true,
       createdAt: true,
+      updatedAt: true,
     },
     orderBy: { createdAt: "desc" },
   });
@@ -52,6 +53,7 @@ export async function POST(req) {
         lastName: true,
         phone: true,
         createdAt: true,
+        updatedAt: true,
       },
     });
 

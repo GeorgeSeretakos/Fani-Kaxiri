@@ -1,71 +1,34 @@
-"use client";
+import DocumentItem from "./DocumentItem";
+import {format} from "date-fns";
+import { el } from "date-fns/locale";
 
-import { useState } from "react";
-import DocumentModal from "./DocumentModal";
 
-export default function DocumentList({ docs }) {
-  const [showModal, setShowModal] = useState(false);
-  const [editingDoc, setEditingDoc] = useState(null);
-
-  const handleAdd = () => {
-    setEditingDoc(null);
-    setShowModal(true);
-  };
-
-  const handleEdit = (doc) => {
-    setEditingDoc(doc);
-    setShowModal(true);
-  };
-
-  const handleDelete = (id) => {
-    if (confirm("Are you sure you want to delete this document?")) {
-      console.log("Deleting doc", id);
-    }
-  };
+export default function DocumentList({ documents, onDownload, onDelete }) {
+  if (Object.keys(documents).length === 0)
+    return <p className="text-gray-500">No documents found.</p>;
 
   return (
-    <div className="bg-white p-4 rounded shadow space-y-4">
-      {docs.length === 0 ? (
-        <p className="text-gray-500">No documents yet.</p>
-      ) : (
-        <ul className="space-y-2">
-          {docs.map((doc) => (
-            <li key={doc.id} className="flex justify-between items-center border-b pb-2">
-              <div>
-                <p className="font-medium">{doc.name}</p>
-                <p className="text-sm text-gray-500">{doc.description}</p>
-                <p className="text-xs text-gray-400">{doc.date}</p>
-              </div>
-              <div className="space-x-2">
-                <button
-                  onClick={() => handleEdit(doc)}
-                  className="px-2 py-1 text-sm bg-yellow-500 text-white rounded"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(doc.id)}
-                  className="px-2 py-1 text-sm bg-red-500 text-white rounded"
-                >
-                  Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="space-y-6">
+      {Object.keys(documents)
+        .sort((a, b) => new Date(b + "-01") - new Date(a + "-01")) // "2025-08" → parse
+        .map((ym) => (
+          <div key={ym} className="bg-gray-700 rounded shadow p-4">
+            <h3 className="text-lg text-white font-bold mb-2">
+              {format(new Date(ym + "-01"), "MMMM yyyy", {locale: el})}
+            </h3>
+            <ul className="space-y-2">
+              {documents[ym].map((doc) => (
+                <DocumentItem
+                  key={doc.id}
+                  doc={doc}
+                  onDownload={onDownload}
+                  {...(onDelete ? {onDelete} : {})}
+                />
+              ))}
+            </ul>
+          </div>
+        ))}
 
-      {/* Add button */}
-      <button
-        onClick={handleAdd}
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      >
-        + Add Document
-      </button>
-
-      {showModal && (
-        <DocumentModal doc={editingDoc} onClose={() => setShowModal(false)} />
-      )}
     </div>
   );
 }
