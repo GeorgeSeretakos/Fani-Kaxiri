@@ -35,10 +35,9 @@ export default function OfficePreviewSection() {
               key={idx}
               className="relative w-full aspect-[5/3] shadow-lg overflow-hidden bg-white"
             >
-              <Image
+              <img
                 src={src}
                 alt={`Office ${idx + 1}`}
-                fill
                 className="object-cover"
               />
             </div>

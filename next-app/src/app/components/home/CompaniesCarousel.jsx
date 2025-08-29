@@ -61,10 +61,9 @@ export default function CompaniesCarousel() {
             className="keen-slider__slide flex justify-center items-center"
           >
             <div className="relative w-40 h-30 rounded-lg">
-              <Image
+              <img
                 src={src}
                 alt={`Company logo ${index + 1}`}
-                fill
                 className="object-contain rounded-lg"
               />
             </div>

@@ -14,7 +14,7 @@ export default function SocialSection() {
             className="w-12 h-12 rounded-full flex items-center justify-center"
             aria-label="Facebook"
           >
-            <Image
+            <img
               src="/icons/facebook.png"
               alt="Facebook"
               width={40}
@@ -27,7 +27,7 @@ export default function SocialSection() {
             className="w-12 h-12 rounded-full flex items-center justify-center"
             aria-label="Instagram"
           >
-            <Image
+            <img
               src="/icons/instagram.png"
               alt="Instagram"
               width={40}
@@ -40,7 +40,7 @@ export default function SocialSection() {
             className="w-12 h-12 rounded-full flex items-center justify-center"
             aria-label="TikTok"
           >
-            <Image
+            <img
               src="/icons/tiktok.png"
               alt="TikTok"
               width={40}
@@ -53,7 +53,7 @@ export default function SocialSection() {
             className="w-12 h-12 rounded-full flex items-center justify-center"
             aria-label="LinkedIn"
           >
-            <Image
+            <img
               src="/icons/linkedin.png"
               alt="LinkedIn"
               width={40}
