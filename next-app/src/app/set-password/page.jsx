@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import IntroSection from "../components/about/IntroSection";
+import IntroSection from "../components/IntroSection";
 
 export default function SetPassword() {
   const [email, setEmail] = useState("");
@@ -52,7 +52,7 @@ export default function SetPassword() {
     <main className="min-h-screen">
       <Navbar />
       <IntroSection
-        image="/images/office/18.jpg"
+        image="/images/office/18.webp"
         title="Ορισμός Κωδικού"
         paragraph={
           <>

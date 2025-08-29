@@ -4,7 +4,7 @@ export default function FirstSession() {
       {/* background */}
       <div className="absolute inset-0">
         <img
-          src="/images/food/2.jpg"
+          src="/images/food/2.webp"
           alt="Η Πρώτη Συνάντηση"
           className="w-full h-full object-cover rounded-lg"
         />

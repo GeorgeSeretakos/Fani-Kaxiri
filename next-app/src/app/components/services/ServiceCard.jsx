@@ -1,18 +1,26 @@
-export default function ServiceCard({ icon, title, description }) {
+export default function ServiceCard({ iconSrc, iconAlt, title, description }) {
   return (
-    <div className="border border-teal-200 rounded-xl p-4 hover:shadow transition w-64 h-80 flex flex-col justify-between">
+    <div
+      className="border border-teal-400 bg-white rounded-xl p-6 shadow-lg transition
+                 w-full flex flex-col items-start
+                 min-h-[14rem] sm:min-h-[16rem]"  // shorter than before
+    >
       {/* Icon */}
-      <div className="w-12 h-12 flex items-center justify-center bg-teal-50 rounded mb-4">
-        <div className="text-2xl text-cyan-500">{icon}</div>
+      <div className="w-14 h-14 flex items-center justify-center rounded-full mb-3">
+        <img
+          src={iconSrc}
+          alt={iconAlt || title}
+          className="w-10 h-10 object-contain"
+        />
       </div>
 
       {/* Title */}
-      <h3 className="text-lg font-semibold text-teal-600 mb-2">
+      <h4 className="text-teal-800 mb-2 text-left font-semibold">
         {title}
-      </h3>
+      </h4>
 
       {/* Description */}
-      <p className="text-gray-600 text-sm flex-1">
+      <p className="!text-sm sm:!text-base text-gray-700 text-left">
         {description}
       </p>
     </div>

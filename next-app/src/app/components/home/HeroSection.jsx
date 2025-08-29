@@ -14,15 +14,15 @@ export default function HeroSection() {
       {/* Text content */}
       <div className="relative z-20 flex flex-col justify-center h-full max-w-7xl mx-auto px-4 text-white">
         <div className="max-w-lg">
-          <h1 className="text-4xl md:text-5xl font-serif mb-4">
+          <h1 className="font-serif mb-4">
             Τόνια Καπαρελιώτη
           </h1>
-          <p className="text-lg md:text-xl">
+          <h4>
             Διαιτολόγος – Διατροφολόγος
-          </p>
-          <p className="text-lg md:text-xl">
+          </h4>
+          <h4>
             Wellbeing & NLP Coach
-          </p>
+          </h4>
         </div>
       </div>
     </section>

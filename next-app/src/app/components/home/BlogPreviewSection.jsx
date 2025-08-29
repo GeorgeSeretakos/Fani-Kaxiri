@@ -3,11 +3,19 @@ import BlogCard from "../blog/BlogCard";
 import Link from "next/link";
 
 export default function BlogPreviewSection() {
-  const categories = [...new Set(posts.map((post) => post.category))];
+  // keep only posts that have slug (exclude PDFs/studies)
+  const blogPosts = posts.filter((post) => post.slug);
+
+  // unique categories
+  const categories = [...new Set(blogPosts.map((post) => post.category))];
+
+  // one post per category (first found)
   const previewPosts = categories
-    .map((category) => posts.find((post) => post.category === category))
+    .map((category) => blogPosts.find((post) => post.category === category))
     .filter(Boolean)
     .slice(0, 3);
+
+  console.log("Preview Posts: ", previewPosts);
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-12">
@@ -19,30 +27,17 @@ export default function BlogPreviewSection() {
           τον εαυτό σου με απλό και ρεαλιστικό τρόπο.
         </p>
         <div className="mt-4">
-          <Link
-            href="/blog"
-            className="btn"
-          >
+          <Link href="/blog" className="btn">
             Προβολή όλων
           </Link>
         </div>
       </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {previewPosts.map((post) => (
-            <Link
-              key={post.slug}
-              href={`/blog/${post.category}/${post.slug}`}
-              className="block"
-            >
-              <BlogCard
-                image={post.image}
-                title={post.title}
-                description={post.description}
-              />
-            </Link>
-          ))}
-        </div>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {previewPosts.map((post) => (
+          <BlogCard key={post.slug} post={post} />
+        ))}
+      </div>
     </section>
-);
+  );
 }

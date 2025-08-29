@@ -1,7 +1,7 @@
 'use client';
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import IntroSection from "../components/about/IntroSection";
+import IntroSection from "../components/IntroSection";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -43,7 +43,7 @@ export default function Login() {
     <main className="min-h-screen">
       <Navbar />
       <IntroSection
-        image="/images/office/17.jpg"
+        image="/images/office/17.webp"
         title="Είσοδος στην Υπηρεσία"
         paragraph={
           <>

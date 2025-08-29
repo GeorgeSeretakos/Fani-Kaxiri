@@ -1,11 +1,11 @@
-import IntroSection from "../components/about/IntroSection";
+import IntroSection from "../components/IntroSection";
 import FirstSession from "../components/services/FirstSession";
-import DietApproach from "../components/services/DietApproach/DietApproach";
-import NlpSection from "../components/services/NlpSection";
+import DietApproach from "../components/services/Advantages/Advantages";
 import ServicesSection from "../components/services/ServicesSection";
-import OnlineSessions from "../components/services/OnlineSession";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import services from "../../../public/data/services";
+import AboutSection from "../components/AboutSection";
 
 
 export default function ServicesPage() {
@@ -14,27 +14,94 @@ export default function ServicesPage() {
       <Navbar/>
       <main className="w-full">
         <IntroSection
-          image="/images/office/25.jpg"
+          image="/images/office/25.webp"
           title="Οι Υπηρεσίες μας"
           paragraph={
-            <>
+            <p>
               Στη <strong className="font-great-vibes text-2xl">Believe in Yourself</strong>, οι υπηρεσίες μας δεν
               περιορίζονται
               σε τυπικά διαιτολόγια, αλλά αγγίζουν βαθύτερα τις συνήθειες και τα συναισθήματα
               που συνδέονται με τη διατροφή μας. Μαζί δημιουργούμε ρεαλιστικά, άμεσα εφαρμόσιμα πλάνα που ταιριάζουν στη
               δική σου ζωή,
               και αντιμετωπίζουμε τα βάρη που μπλοκάρουν τη ζωή και τη διατροφή σου.
-            </>
+            </p>
           }
         />
 
-        <DietApproach/>
+        <ServicesSection
+          title="Οι υπηρεσίες μας"
+          paragraphs={[
+            `Οι υπηρεσίες μας δεν είναι "ένας ακόμα οδηγός διατροφής", αλλά μια προσωπική διαδικασία αλλαγής που αγγίζει όχι μόνο το σώμα, αλλά και τον τρόπο που φροντίζεις τον εαυτό σου συνολικά.`
+          ]}
+          services={services}
+        />
 
-        <ServicesSection/>
+        <AboutSection
+          title="Φεύγοντας, πάρε κάτι μαζί σου!"
+          image="/images/general/laptop.webp"
+          reverse={true}
+          fullWidthTitle={false}
+          description={[
+            `Η διατροφή δεν τελειώνει στο γραφείο. Με την <strong>προσωπική ηλεκτρονική πλατφόρμα</strong> που δημιουργήσαμε, κάθε πελάτης μας έχει τον δικό του λογαριασμό και πρόσβαση σε όλα τα αρχεία του – <strong>διατροφές</strong>, <strong>μετρήσεις</strong> και <strong>φωτογραφίες προόδου</strong>. Έτσι, κάθε φορά που φεύγεις από το ραντεβού, «παίρνεις» μαζί σου κάτι χειροπιαστό, που μπορείς να δεις και να αξιοποιήσεις ανά πάσα στιγμή.`,
+            `Η πλατφόρμα δεν είναι απλώς αποθήκευση αρχείων. Είναι ένα <strong>εργαλείο παρακολούθησης και εξέλιξης</strong>, που σου δείχνει καθαρά την πρόοδό σου, σε κρατά οργανωμένο και σου δίνει συνεχή υποστήριξη. Με αυτόν τον τρόπο, η συνεργασία μας γίνεται πιο ουσιαστική, πιο διαδραστική και προσαρμοσμένη στους ρυθμούς σου.`
+          ]}
+          ticks={[
+            "Πρόσβαση σε διατροφές, μετρήσεις & φωτογραφίες",
+            "Προσωπικός λογαριασμός για κάθε πελάτη",
+            "Συνεχής παρακολούθηση της προόδου"
+          ]}
+          ctaText="Συνδέσου στην πλατφόρμα"
+          ctaLink="/login"
+        />
+
+        <AboutSection
+          title="Το DNA σου κρύβει τα μυστικά της διατροφής σου"
+          image="/images/general/dna.webp"
+          fullWidthTitle={false}
+          reverse={false}
+          description={[
+            "Με το <strong>DNA Test 3 σε 1</strong>, που προσφέρουμε, ανακαλύπτετε πώς το σώμα σας ανταποκρίνεται σε θρεπτικά συστατικά, βιταμίνες και άσκηση. Έτσι, αντί για γενικές οδηγίες, αποκτάτε ένα <strong>προσωποποιημένο πλάνο διατροφής</strong> που ταιριάζει πραγματικά στις ανάγκες σας.",
+            "Το τεστ αποκαλύπτει ευαισθησίες (λακτόζη, καφεΐνη, γλουτένη), πιθανές ελλείψεις σε βιταμίνες και προδιάθεση σε μεταβολισμό ή τραυματισμούς. Με αυτά τα δεδομένα, σχεδιάζουμε μαζί ένα <strong>στοχευμένο πρόγραμμα διατροφής και ευεξίας</strong>, ώστε να πετύχετε τους στόχους σας με ασφάλεια και επιστημονική τεκμηρίωση."
+          ]}
+          ticks={[
+            "Εξατομικευμένη διατροφή",
+            "Πρόληψη ελλείψεων βιταμινών",
+            "Βελτίωση ευεξίας & επιδόσεων"
+          ]}
+        />
+
+        <AboutSection
+          title="Μάθε πόσες θερμίδες καίει πραγματικά το σώμα σου"
+          image="/images/product/2.jpg"
+          reverse={true}
+          fullWidthTitle={false}
+          description={[
+            `Με το <strong>TANITA MC-780 MA-N</strong>, έχεις τη δυνατότητα να μάθεις με ακρίβεια τον <strong>βασικό μεταβολισμό</strong> σου και να κατανοήσεις πόσες θερμίδες χρειάζεται πραγματικά το σώμα σου καθημερινά.`,
+            `Κάθε άνθρωπος είναι διαφορετικός – και το ίδιο ισχύει για τον μεταβολισμό του. Γνωρίζοντας τα δικά σου δεδομένα, μπορείς να ρυθμίσεις καλύτερα τη διατροφή και την άσκησή σου, ώστε να πετύχεις τους στόχους σου με ασφάλεια και ισορροπία.`
+          ]}
+          ticks={[
+            "Μέτρηση βασικού μεταβολισμού",
+            "Μάθε πόσες θερμίδες καίει το σώμα σου",
+            "Προσαρμογή διατροφής στις δικές σου ανάγκες"
+          ]}
+          ctaText="Κλείσε το ραντεβού σου"
+          ctaLink="/contact"
+        />
 
         <FirstSession/>
 
-        <OnlineSessions/>
+        <AboutSection
+          title="Online Συνεδρίες"
+          image="/images/general/online-meeting.webp"
+          reverse
+          fullWidthTitle={false}
+          description={[
+            `Η σύγχρονη τεχνολογία μας επιτρέπει να συνεργαστούμε από όπου κι αν βρίσκεσαι — στο σπίτι, στο γραφείο ή ακόμα και στο εξωτερικό — με την ίδια άνεση και αποτελεσματικότητα!`,
+            `Τα ραντεβού πραγματοποιούνται μέσω <strong>Microsoft Teams</strong> και <strong>Zoom</strong>, με εύκολη σύνδεση και χωρίς πολύπλοκες διαδικασίες.`,
+            `Η εμπειρία είναι εξίσου προσωπική και υποστηρικτική με τη δια ζώσης συνεδρία, χωρίς να επηρεάζεται από την απόσταση ή τον τόπο διαμονής σου.`,
+            `<i>Μαζί μπορούμε να ξεπεράσουμε κάθε εμπόδιο — <strong>όπου κι αν βρίσκεσαι!</strong></i>`,
+          ]}
+        />
 
         <Footer/>
 

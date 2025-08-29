@@ -9,34 +9,38 @@ import "swiper/css/pagination";
 
 export default function TestimonialsCarousel() {
   return (
-    <div
-      className="relative bg-cover bg-center flex justify-center items-center"
-    >
+    <div className="relative bg-cover bg-center px-4 flex justify-center items-center py-12 sm:py-16 md:py-20">
       {/* Content */}
-      <div className="z-10 w-full px-4">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="title-black">Τι λένε για εμάς</h2>
-          <p className="text-gray-600 text-lg mt-2 max-w-xl">
+      <div className="z-10 w-full">
+        {/* Section Title */}
+        <div className="max-w-6xl mx-auto">
+          <h2 className="title-black text-left">
+            Τι λένε για εμάς
+          </h2>
+          <p className="text-gray-600 mt-2 max-w-xl text-left">
             Μερικά λόγια από ανθρώπους που μας εμπιστεύτηκαν και είδαν τη ζωή τους να αλλάζει.
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto my-12 px-4">
+        {/* Carousel */}
+        <div className="max-w-6xl mx-auto my-10 px-2 sm:px-4">
           <Swiper
             modules={[Pagination, Autoplay]}
-            spaceBetween={20}
+            spaceBetween={16}
             slidesPerView={1}
-            pagination={{clickable: true}}
+            pagination={{ clickable: true }}
             loop={true}
-            autoplay={{delay: 4000}}
+            autoplay={{ delay: 4000 }}
             breakpoints={{
-              768: {slidesPerView: 2},
-              1024: {slidesPerView: 3},
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2, spaceBetween: 20 },
+              1024: { slidesPerView: 3, spaceBetween: 24 },
             }}
           >
             {testimonials.map((r, idx) => (
               <SwiperSlide key={idx} className="flex">
-                <div className="bg-white shadow rounded-xl p-4 text-left flex flex-col justify-between flex-1">
+                <div className="bg-white shadow rounded-xl p-4 md:p-5 text-left flex flex-col justify-between flex-1">
+                  {/* Header */}
                   <div className="flex items-center gap-2">
                     {r.avatar ? (
                       <img
@@ -52,9 +56,7 @@ export default function TestimonialsCarousel() {
                       </div>
                     )}
                     <div className="flex flex-col">
-                      <span className="text-base font-bold text-gray-800">
-                        {r.name}
-                      </span>
+                      <span className="font-bold text-gray-800">{r.name}</span>
                       <span className="text-xs text-gray-500">{r.years}</span>
                     </div>
                     <div className="ml-auto">
@@ -66,11 +68,13 @@ export default function TestimonialsCarousel() {
                     </div>
                   </div>
 
-                  <div className="text-yellow-400 mt-2 text-lg">
+                  {/* Stars */}
+                  <div className="text-yellow-400 mt-2 text-sm md:text-base">
                     {"★".repeat(r.stars)}
                   </div>
 
-                  <p className="text-sm mt-2 text-gray-700">{r.text}</p>
+                  {/* Review */}
+                  <p className="mt-2 text-gray-700 text-sm">{r.text}</p>
                 </div>
               </SwiperSlide>
             ))}
@@ -84,14 +88,13 @@ export default function TestimonialsCarousel() {
             display: flex;
             height: auto;
           }
-
+          .swiper-pagination {
+            position: relative !important;
+            margin-top: 1.5rem;
+          }
           .swiper-pagination-bullet {
             background: white !important;
             opacity: 0.4;
-          }
-          .swiper-pagination {
-            position: relative !important;
-            text-align: center;
           }
           .swiper-pagination-bullet-active {
             background: white !important;

@@ -11,8 +11,8 @@ const openSans = Open_Sans({ variable: "--font-open-sans", subsets: ["latin"] })
 const roboto = Roboto({ variable: "--font-roboto", subsets: ["latin"] });
 
 export const metadata = {
-    title: "Τόνια Καπαρελιώτη - Διατολόγος Διατροφολόγος",
-    description: "Website for Tonia Kaparelioti",
+    title: "Τόνια Καπαρελιώτη",
+    description: "Website for nutritionist and well being coach Tonia Kaparelioti",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -25,8 +25,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           antialiased
         `}
         >
-        {/*<Navbar />*/}
-        <main>{children}</main>
+        <Navbar />
+        <main className="mt-16">{children}</main>
         </body>
         </html>
     );
