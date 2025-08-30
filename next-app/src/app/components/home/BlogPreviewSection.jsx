@@ -15,7 +15,6 @@ export default function BlogPreviewSection() {
     .filter(Boolean)
     .slice(0, 3);
 
-  console.log("Preview Posts: ", previewPosts);
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-12">

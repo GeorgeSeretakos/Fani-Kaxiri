@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 export default function PhotoGrid({ photos, onDelete }) {
-  console.log("Photos: ", photos);
   const [urls, setUrls] = useState({});
 
   useEffect(() => {
