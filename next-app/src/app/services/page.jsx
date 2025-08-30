@@ -72,7 +72,7 @@ export default function ServicesPage() {
 
         <AboutSection
           title="Μάθε πόσες θερμίδες καίει πραγματικά το σώμα σου"
-          image="/images/product/2.jpg"
+          image="/images/general/TANITA-2.jpg"
           reverse={true}
           fullWidthTitle={false}
           description={[
