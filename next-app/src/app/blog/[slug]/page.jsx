@@ -44,7 +44,7 @@ export default function BlogSlugPage({ params }) {
           rel="noopener noreferrer"
           className="inline-block mt-6 text-teal-800 font-medium hover:underline"
         >
-          Διαβάστε περισσότερα →
+          Δες περισσότερα →
         </Link>
       )}
     </article>

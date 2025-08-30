@@ -34,7 +34,7 @@ export default function BlogCard({ post }) {
             rel={isPdf ? "noopener noreferrer" : undefined}
             className="inline-block mt-4 text-teal-600 font-medium hover:underline"
           >
-            {isPdf ? "Προβολή PDF →" : "Μάθετε περισσότερα →"}
+            {isPdf ? "Προβολή PDF →" : "Μάθε περισσότερα →"}
           </Link>
         )}
       </div>

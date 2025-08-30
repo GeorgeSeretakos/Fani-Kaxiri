@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
 import { useKeenSlider } from "keen-slider/react";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import "keen-slider/keen-slider.min.css";
-import Image from "next/image";
 
 const logos = [
   "/images/companies/allianz.jpg",
@@ -43,7 +42,6 @@ export default function CompaniesCarousel() {
     const interval = setInterval(() => {
       instanceRef.current?.next();
     }, 2000);
-
     return () => clearInterval(interval);
   }, [instanceRef]);
 
@@ -60,11 +58,12 @@ export default function CompaniesCarousel() {
             key={index}
             className="keen-slider__slide flex justify-center items-center"
           >
-            <div className="relative w-40 h-30 rounded-lg">
+            {/* Logo box: consistent height & centered */}
+            <div className="w-40 h-24 flex items-center justify-center">
               <img
                 src={src}
                 alt={`Company logo ${index + 1}`}
-                className="object-contain rounded-lg"
+                className="max-h-full max-w-full object-contain"
               />
             </div>
           </div>
