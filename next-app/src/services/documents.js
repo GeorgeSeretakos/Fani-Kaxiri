@@ -1,4 +1,6 @@
 // src/services/documents.js
+import {logClientError} from "../utils/logClientError";
+
 export async function requestUpload({ clientId, fileName, type, date, description }) {
   const res = await fetch(`/api/documents/upload`, {
     method: "POST",
@@ -9,14 +11,18 @@ export async function requestUpload({ clientId, fileName, type, date, descriptio
 }
 
 export async function uploadToStorage(uploadUrl, file) {
-  console.log("Upload Util called with params: ", uploadUrl, file);
+  console.log("[upload:start]", { uploadUrl, size: file.size });
   const res = await fetch(uploadUrl, {
     method: "PUT",
     body: file,
   });
   if (!res.ok) {
     const text = await res.text();
-    console.error("Upload failed:", text);
+    await logClientError("uploadToStorage", {
+      status: res.status,
+      body: text,
+      fileName: file?.name,
+    });
     throw new Error("Failed to upload file");
   }
   return true;
