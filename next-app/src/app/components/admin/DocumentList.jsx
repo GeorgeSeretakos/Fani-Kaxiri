@@ -8,15 +8,15 @@ export default function DocumentList({ documents, onDownload, onDelete }) {
     return <p className="text-gray-500">No documents found.</p>;
 
   return (
-    <div className="space-y-6">
+    <div className="">
       {Object.keys(documents)
         .sort((a, b) => new Date(b + "-01") - new Date(a + "-01")) // "2025-08" → parse
         .map((ym) => (
-          <div key={ym} className="bg-gray-700 rounded shadow p-4">
-            <h3 className="text-lg text-white font-bold mb-2">
+          <div key={ym} className="shadow">
+            <h3 className="text-lg bg-gray-400 py-2 px-4 text-white font-bold">
               {format(new Date(ym + "-01"), "MMMM yyyy", {locale: el})}
             </h3>
-            <ul className="space-y-2">
+            <div>
               {documents[ym].map((doc) => (
                 <DocumentItem
                   key={doc.id}
@@ -25,7 +25,7 @@ export default function DocumentList({ documents, onDownload, onDelete }) {
                   {...(onDelete ? {onDelete} : {})}
                 />
               ))}
-            </ul>
+            </div>
           </div>
         ))}
 

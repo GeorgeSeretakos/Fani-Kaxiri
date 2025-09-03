@@ -49,8 +49,6 @@ export default async function ClientDetailPage({ params }) {
     })
   );
 
-  // console.log("docsWithUrls: ", docsWithUrls);
-
   const clientWithUrls = { ...client, documents: docsWithUrls };
 
   return <ClientDetail client={clientWithUrls} mode="admin"/>;

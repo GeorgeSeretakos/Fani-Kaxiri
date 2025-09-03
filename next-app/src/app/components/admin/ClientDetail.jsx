@@ -174,7 +174,7 @@ export default function ClientDetail({ client, mode = "admin" }) {
       {/* Client Info Card */}
       <ClientInfoCard
         client={clientData}
-        mode={mode} // 👈 περάσαμε το mode
+        mode={mode}
         {...(mode === "admin"
           ? {
             onEdit: () => setIsEditing(true),
@@ -185,12 +185,20 @@ export default function ClientDetail({ client, mode = "admin" }) {
       />
 
 
-      {/* Tabs */}
-      <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-      {status && <p className="text-sm">{status}</p>}
+      {/* Sub-header: Tabs + Date Filter (sticky like Drive) */}
+      <section className="sticky top-0 z-20 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-y border-zinc-200">
+        <div className="px-4">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between py-3">
 
-      {/* Date Filter */}
-      <DateFilter setDateFilter={setDateFilter} />
+            <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+
+            <DateFilter setDateFilter={setDateFilter} />
+          </div>
+        </div>
+      </section>
+
+      {status && <p className="px-4 text-xs sm:text-sm">{status}</p>}
+
 
       <div className="mt-6">
         {activeTab === "photo" ? (
