@@ -1,6 +1,6 @@
 export default function HeroSection() {
   return (
-    <section className="relative h-screen">
+    <section className="relative h-[95vh]">
       {/* Background Image */}
       <img
         src="/images/tonia/7.jpg"

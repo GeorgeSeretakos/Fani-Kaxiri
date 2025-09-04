@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function EditClientModal({
                                           isOpen,
@@ -7,10 +8,10 @@ export default function EditClientModal({
                                           formData,
                                           setFormData,
                                           onSave,
-                                          status,
-                                          loading,
+                                          loading, // optional: parent-controlled loading
                                         }) {
   const firstInputRef = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -25,17 +26,24 @@ export default function EditClientModal({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSave();
+    try {
+      setIsSubmitting(true);
+      await onSave?.(); // works with sync or async onSave
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const busy = Boolean(loading || isSubmitting);
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-lg font-semibold mb-4">Επεξεργασία Πελάτη</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" aria-busy={busy}>
           {/* Όνομα */}
           <div>
             <label
@@ -113,20 +121,27 @@ export default function EditClientModal({
               type="button"
               onClick={onClose}
               className="px-3 py-2 text-sm border rounded hover:bg-gray-50"
+              disabled={busy}
             >
               Ακύρωση
             </button>
             <button
               type="submit"
-              disabled={loading}
-              className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60"
+              disabled={busy}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
+              aria-live="polite"
             >
-              {loading ? "Αποθήκευση..." : "Αποθήκευση"}
+              {busy ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Αποθήκευση...
+                </>
+              ) : (
+                "Αποθήκευση"
+              )}
             </button>
           </div>
         </form>
-
-        {status && <p className="mt-3 text-sm text-gray-600">{status}</p>}
       </div>
     </div>
   );

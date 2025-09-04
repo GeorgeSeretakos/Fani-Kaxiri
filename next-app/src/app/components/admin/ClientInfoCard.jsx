@@ -1,6 +1,6 @@
-import { Edit, Upload, Trash2 } from "lucide-react";
 import DateFilter from "./DateFilter";
 import HeaderTabs from "./HeaderTabs";
+import { Edit, Upload, Trash2, Mail, Loader2 } from "lucide-react";
 
 export default function ClientInfoCard({
                                          client,
@@ -8,6 +8,8 @@ export default function ClientInfoCard({
                                          onEdit,
                                          onUpload,
                                          onDelete,
+                                         onNotify,
+                                         notifyLoading,
                                          activeTab,
                                          setActiveTab,
                                          setDateFilter,
@@ -52,13 +54,48 @@ export default function ClientInfoCard({
             )}
           </div>
 
-          {client.email && <p className="text-gray-600 break-all">email: {client.email}</p>}
+          {/* Email row with inline notify action */}
+          {client.email && (
+            <div className="text-gray-600 flex items-center gap-2 min-w-0">
+              <span className="break-all">
+                email:{" "}
+                <a
+                  href={`mailto:${client.email}`}
+                  className="underline-offset-2 hover:underline"
+                >
+                  {client.email}
+                </a>
+              </span>
+              {mode === "admin" && (
+                <button
+                  type="button"
+                  onClick={onNotify}
+                  disabled={!client.email || notifyLoading}
+                  className="p-1 rounded hover:bg-gray-100 text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+                  title={
+                    client.email
+                      ? "Ειδοποίηση χρήστη"
+                      : "Δεν υπάρχει email για τον πελάτη"
+                  }
+                  aria-label="Ειδοποίηση χρήστη"
+                >
+                  {notifyLoading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Mail className="w-4 h-4" />
+                  )}
+                </button>
+              )}
+            </div>
+          )}
+
           {client.phone && <p className="text-gray-600">Tel: {client.phone}</p>}
 
           <div className="mt-3 space-y-1 text-sm">
             <div className="flex items-center gap-2">
               <p>
-                Συνολικά έγγραφα: <span className="font-semibold">{totalDocs}</span>
+                Συνολικά έγγραφα:{" "}
+                <span className="font-semibold">{totalDocs}</span>
               </p>
               {mode === "admin" && (
                 <button
@@ -75,7 +112,10 @@ export default function ClientInfoCard({
 
             <div className="flex items-center gap-2">
               <p>
-                Τελευταία τροποποίηση: <span className="font-semibold">{formatDate(client.updatedAt)}</span>
+                Τελευταία τροποποίηση:{" "}
+                <span className="font-semibold">
+                  {formatDate(client.updatedAt)}
+                </span>
               </p>
               {mode === "admin" && (
                 <button

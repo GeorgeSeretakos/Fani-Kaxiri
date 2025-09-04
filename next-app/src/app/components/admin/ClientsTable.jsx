@@ -51,11 +51,11 @@ export default function ClientsTable({ clients }) {
               <td className="p-0" colSpan={5}>
                 <div className="max-w-6xl mx-auto px-4">
                   <div className={`${gridCols} py-3`}>
-                    <div className="truncate">{c.lastName}</div>
-                    <div className="truncate">{c.firstName}</div>
+                    <div className="truncate font-bold">{c.lastName}</div>
+                    <div className="truncate font-bold">{c.firstName}</div>
                     <div className="truncate" title={c.email}>{c.email}</div>
                     <div className="truncate">{c.phone || "—"}</div>
-                    <div className="whitespace-nowrap">{formatDate(c.updatedAt)}</div>
+                    <div className="whitespace-nowrap font-bold">{formatDate(c.updatedAt)}</div>
                   </div>
                 </div>
               </td>

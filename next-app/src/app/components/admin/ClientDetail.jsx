@@ -2,13 +2,11 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 
-import HeaderTabs from "./HeaderTabs";
 import UploadModal from "./UploadModal";
 import EditClientModal from "./EditClientModal";
 import ClientInfoCard from "./ClientInfoCard";
-import DateFilter from "./DateFilter";
 import DocumentList from "./DocumentList";
-import PhotoGrid from "./PhotoGrid";
+
 
 import { deleteClient, updateClient } from "../../../services/clients";
 import {
@@ -176,6 +174,34 @@ export default function ClientDetail({ client, mode = "admin" }) {
     }
   };
 
+  const [notifyLoading, setNotifyLoading] = useState(false);
+
+  const handleNotifyUser = async () => {
+    if (!clientData?.email) {
+      alert("Δεν υπάρχει email για τον πελάτη.");
+      return;
+    }
+    try {
+      setNotifyLoading(true);
+      const res = await fetch("/api/notify", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          to: clientData.email,
+          name: `${clientData.firstName || ""} ${clientData.lastName || ""}`.trim(),
+          // subject / message omitted to use your API defaults
+        }),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      setStatus("✅ Η ειδοποίηση στάλθηκε επιτυχώς.");
+    } catch (err) {
+      console.error(err);
+      setStatus("❌ Σφάλμα στην αποστολή ειδοποίησης.");
+    } finally {
+      setNotifyLoading(false);
+    }
+  };
+
 
   // console.log("Client data passed to ClientInfoCard: ", clientData);
 
@@ -193,10 +219,11 @@ export default function ClientDetail({ client, mode = "admin" }) {
             onEdit: () => setIsEditing(true),
             onDelete: handleDeleteClient,
             onUpload: () => setIsUploadOpen(true),
+            onNotify: handleNotifyUser,
+            notifyLoading
           }
           : {})}
       />
-
 
       {/*{status && <p className="px-4 text-xs sm:text-sm">{status}</p>}*/}
 
