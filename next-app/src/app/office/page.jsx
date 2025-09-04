@@ -20,7 +20,7 @@ export default function OfficePage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen">
+      <main className="min-h-screen mt-16">
         <IntroSection
           image="/images/office/13.webp"
           title="Ο Χώρος μας"

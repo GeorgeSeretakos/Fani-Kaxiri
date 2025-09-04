@@ -3,9 +3,9 @@ import Navbar from "../components/Navbar";
 
 export default function Contact() {
   return (
-    <>
-      <Navbar />
-      <Footer />
-    </>
-  );
+    <div className="mt-16">
+      <Navbar/>
+      <Footer/>
+    </div>
+  )
 }

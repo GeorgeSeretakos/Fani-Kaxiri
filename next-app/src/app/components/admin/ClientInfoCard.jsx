@@ -1,68 +1,107 @@
 import { Edit, Upload, Trash2 } from "lucide-react";
+import DateFilter from "./DateFilter";
+import HeaderTabs from "./HeaderTabs";
 
-export default function ClientInfoCard({ client, onEdit, onDelete, onUpload, mode = "admin" }) {
+export default function ClientInfoCard({
+                                         client,
+                                         mode = "admin",
+                                         onEdit,
+                                         onUpload,
+                                         onDelete,
+                                         activeTab,
+                                         setActiveTab,
+                                         setDateFilter,
+                                       }) {
   const totalDocs = client.documents?.length || 0;
 
-  const lastDocDate = client.documents?.length
-    ? new Date(Math.max(...client.documents.map((d) => new Date(d.date).getTime())))
-    : null;
-
-  const formatDate = (date) => {
-    if (!date) return "-";
-    return new Intl.DateTimeFormat("el-GR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(date);
-  };
+  const formatDate = (date) =>
+    date
+      ? new Intl.DateTimeFormat("el-GR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(new Date(date))
+      : "-";
 
   return (
-    <div className="bg-white shadow rounded p-6 flex justify-between items-center">
-      {/* Πληροφορίες */}
-      <div>
-        <h2 className="text-xl font-semibold">
-          {client.firstName} {client.lastName}
-        </h2>
-        <p className="text-gray-600">{client.email}</p>
-        <p className="text-gray-600">{client.phone}</p>
+    <div className="border-b-4 border-gray-100 p-6 flex flex-col md:flex-row gap-6 md:justify-between">
+      {/* Left: Client info */}
+      <div className="flex items-start gap-4 md:flex-1">
+        <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-semibold text-lg shrink-0">
+          {client.firstName?.[0]}
+          {client.lastName?.[0]}
+        </div>
 
-        <p className="text-gray-600 mt-2">
-          Συνολικά έγγραφα: <span className="font-semibold">{totalDocs}</span>
-        </p>
-        <p className="text-gray-600">
-          Τελευταία τροποποίηση:{" "}
-          <span className="font-semibold">{formatDate(lastDocDate)}</span>
-        </p>
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <h2 className="text-xl font-semibold truncate">
+              {client.firstName} {client.lastName}
+            </h2>
+            {mode === "admin" && (
+              <button
+                type="button"
+                onClick={onEdit}
+                className="p-1 rounded hover:bg-gray-100 text-gray-600"
+                title="Επεξεργασία"
+                aria-label="Επεξεργασία"
+              >
+                <Edit className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          {client.email && <p className="text-gray-600 break-all">email: {client.email}</p>}
+          {client.phone && <p className="text-gray-600">Tel: {client.phone}</p>}
+
+          <div className="mt-3 space-y-1 text-sm">
+            <div className="flex items-center gap-2">
+              <p>
+                Συνολικά έγγραφα: <span className="font-semibold">{totalDocs}</span>
+              </p>
+              {mode === "admin" && (
+                <button
+                  type="button"
+                  onClick={onUpload}
+                  className="p-1 rounded hover:bg-gray-100 text-gray-600"
+                  title="Ανέβασμα"
+                  aria-label="Ανέβασμα"
+                >
+                  <Upload className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <p>
+                Τελευταία τροποποίηση: <span className="font-semibold">{formatDate(client.updatedAt)}</span>
+              </p>
+              {mode === "admin" && (
+                <button
+                  type="button"
+                  onClick={onDelete}
+                  className="p-1 rounded hover:bg-gray-100 text-gray-600"
+                  title="Διαγραφή πελάτη"
+                  aria-label="Διαγραφή πελάτη"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Ενέργειες Admin */}
-      {mode === "admin" && (
-        <div className="flex space-x-3">
-          <button
-            onClick={onEdit}
-            className="p-2 rounded hover:bg-gray-100 text-gray-600 transition"
-            title="Επεξεργασία"
-          >
-            <Edit className="w-5 h-5" />
-          </button>
-          <button
-            onClick={onUpload}
-            className="p-2 rounded hover:bg-gray-100 text-blue-600 transition"
-            title="Ανεβάστε Αρχείο"
-          >
-            <Upload className="w-5 h-5" />
-          </button>
-          <button
-            onClick={onDelete}
-            className="p-2 rounded hover:bg-gray-100 text-red-600 transition"
-            title="Διαγραφή"
-          >
-            <Trash2 className="w-5 h-5" />
-          </button>
+      {/* Right: Filters (fixed width, vertically centered) */}
+      <div className="md:self-center w-full md:w-[28rem] lg:w-[32rem] flex flex-col gap-3">
+        <div className="w-full">
+          <DateFilter setDateFilter={setDateFilter} />
         </div>
-      )}
+        <div className="w-full">
+          <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        </div>
+      </div>
     </div>
   );
 }

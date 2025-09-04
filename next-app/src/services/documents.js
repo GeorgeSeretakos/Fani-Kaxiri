@@ -44,7 +44,5 @@ export async function deleteDocument(id) {
     throw new Error("Failed to delete document");
   }
 
-  return await res.text(); // π.χ. "Document deleted successfully"
+  return await res.text();
 }
-
-

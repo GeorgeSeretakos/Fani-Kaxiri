@@ -22,6 +22,7 @@ export async function GET(req, { params }) {
       lastName: true,
       phone: true,
       createdAt: true,
+      updatedAt: true,
       documents: {
         select: { id: true, name: true, type: true, description: true, date: true },
       },
@@ -101,6 +102,7 @@ export async function PUT(req, { params }) {
         lastName: true,
         phone: true,
         createdAt: true,
+        updatedAt: true,
       }
     });
 

@@ -5,7 +5,7 @@ import { el } from "date-fns/locale";
 
 export default function DocumentList({ documents, onDownload, onDelete }) {
   if (Object.keys(documents).length === 0)
-    return <p className="text-gray-500">No documents found.</p>;
+    return <p className="text-gray-500 text-center py-12">Δεν έχετε προσθέσει ακόμη έγγραφα σε αυτή την κατηγορία.</p>;
 
   return (
     <div className="">
@@ -13,7 +13,7 @@ export default function DocumentList({ documents, onDownload, onDelete }) {
         .sort((a, b) => new Date(b + "-01") - new Date(a + "-01")) // "2025-08" → parse
         .map((ym) => (
           <div key={ym} className="shadow">
-            <h3 className="text-lg bg-gray-400 py-2 px-4 text-white font-bold">
+            <h3 className="text-lg bg-teal-800 py-2 px-4 text-white font-bold">
               {format(new Date(ym + "-01"), "MMMM yyyy", {locale: el})}
             </h3>
             <div>

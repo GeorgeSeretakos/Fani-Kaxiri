@@ -99,12 +99,17 @@ export default function ClientDetail({ client, mode = "admin" }) {
     try {
       setStatus("Αποθήκευση...");
       const updated = await updateClient(clientData.id, formData);
+      console.log("Response from updateClient API: ", updated);
       setFormData({
         firstName: updated.firstName,
         lastName: updated.lastName,
         phone: updated.phone,
       });
-      setClientData(updated);
+      setClientData((prev) => ({
+        ...prev,
+        ...updated,
+        documents: prev.documents,
+      }));
       setStatus("✅ Αποθηκεύτηκε με επιτυχία!");
       setIsEditing(false);
     } catch (err) {
@@ -157,7 +162,9 @@ export default function ClientDetail({ client, mode = "admin" }) {
   };
 
   const handleDeleteDocument = async (id) => {
-    if (!confirm("Διαγραφή εγγράφου;")) return;
+    if (!confirm("Θέλετε σίγουρα να διαγράψετε αυτό το αρχείο?\n" +
+      "\n" +
+      "Η διαγραφή είναι οριστική!")) return;
     try {
       await deleteDocument(id);
       setClientData((prev) => ({
@@ -169,12 +176,18 @@ export default function ClientDetail({ client, mode = "admin" }) {
     }
   };
 
+
+  // console.log("Client data passed to ClientInfoCard: ", clientData);
+
   return (
-    <div className="space-y-6">
+    <div>
       {/* Client Info Card */}
       <ClientInfoCard
         client={clientData}
         mode={mode}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        setDateFilter={setDateFilter}
         {...(mode === "admin"
           ? {
             onEdit: () => setIsEditing(true),
@@ -185,34 +198,14 @@ export default function ClientDetail({ client, mode = "admin" }) {
       />
 
 
-      {/* Sub-header: Tabs + Date Filter (sticky like Drive) */}
-      <section className="sticky top-0 z-20 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-y border-zinc-200">
-        <div className="px-4">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between py-3">
+      {/*{status && <p className="px-4 text-xs sm:text-sm">{status}</p>}*/}
 
-            <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-
-            <DateFilter setDateFilter={setDateFilter} />
-          </div>
-        </div>
-      </section>
-
-      {status && <p className="px-4 text-xs sm:text-sm">{status}</p>}
-
-
-      <div className="mt-6">
-        {activeTab === "photo" ? (
-          <PhotoGrid
-            photos={clientData.documents?.filter((d) => d.type === "PHOTO")}
-            {...(mode === "admin" ? { onDelete: handleDeleteDocument } : {})}
-          />
-        ) : (
-          <DocumentList
-            documents={groupedDocs}
-            onDownload={handleDownload}
-            {...(mode === "admin" ? { onDelete: handleDeleteDocument } : {})}
-          />
-        )}
+      <div>
+        <DocumentList
+          documents={groupedDocs}
+          onDownload={handleDownload}
+          {...(mode === "admin" ? {onDelete: handleDeleteDocument} : {})}
+        />
       </div>
 
       {/* Admin-only modals */}

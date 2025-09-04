@@ -6,7 +6,7 @@ export default function ClientsTable({ clients }) {
   const router = useRouter();
 
   if (clients.length === 0) {
-    return <p className="text-gray-500">Δεν βρέθηκαν πελάτες.</p>;
+    return <p className="text-gray-500 py-12 text-center">Δεν βρέθηκαν πελάτες.</p>;
   }
 
   // helper function για format

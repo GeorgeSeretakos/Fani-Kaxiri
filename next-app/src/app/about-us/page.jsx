@@ -9,7 +9,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main>
+      <main className="mt-16">
         <IntroSection
           image="/images/office/18.webp"
           title="Ποιοι Είμαστε"

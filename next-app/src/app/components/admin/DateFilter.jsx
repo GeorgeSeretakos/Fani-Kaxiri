@@ -9,7 +9,6 @@ export default function DateFilter({ setDateFilter }) {
   const [from, setFrom] = React.useState(null);
   const [to, setTo] = React.useState(null);
 
-  // Update parent when dates change
   React.useEffect(() => {
     setDateFilter((prev) => ({
       ...prev,
@@ -20,7 +19,7 @@ export default function DateFilter({ setDateFilter }) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={el}>
-      <div className="flex items-center gap-4 bg-white rounded px-4 py-2">
+      <div className="flex flex-col sm:flex-row gap-4 bg-white rounded w-full max-w-lg mx-auto">
         <DatePicker
           label="Από"
           value={from}

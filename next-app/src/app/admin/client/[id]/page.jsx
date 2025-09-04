@@ -23,6 +23,7 @@ export default async function ClientDetailPage({ params }) {
       lastName: true,
       phone: true,
       createdAt: true,
+      updatedAt: true,
       documents: {
         select: {
           id: true,
@@ -50,6 +51,8 @@ export default async function ClientDetailPage({ params }) {
   );
 
   const clientWithUrls = { ...client, documents: docsWithUrls };
+
+  // console.log("Client passed to client detail page: ", clientWithUrls);
 
   return <ClientDetail client={clientWithUrls} mode="admin"/>;
 }

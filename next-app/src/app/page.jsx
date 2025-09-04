@@ -14,7 +14,7 @@ import services from "../../public/data/services";
 
 export default function Home() {
   return (
-      <main>
+      <main className="mt-16">
           <Navbar />
           <HeroSection />
           <PhilosophySection />

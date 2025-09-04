@@ -12,7 +12,7 @@ export default function ServicesPage() {
   return (
     <>
       <Navbar/>
-      <main className="w-full">
+      <main className="w-full mt-16">
         <IntroSection
           image="/images/office/25.webp"
           title="Οι Υπηρεσίες μας"

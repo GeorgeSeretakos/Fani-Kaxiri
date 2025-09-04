@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           antialiased
         `}
         >
-        <main className="mt-16">{children}</main>
+        <main>{children}</main>
         </body>
         </html>
     );
