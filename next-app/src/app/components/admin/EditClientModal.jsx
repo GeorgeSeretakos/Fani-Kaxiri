@@ -60,7 +60,7 @@ export default function EditClientModal({
               onChange={(e) =>
                 setFormData({ ...formData, firstName: e.target.value })
               }
-              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-800"
               required
             />
             <p className="mt-1 text-xs text-gray-500">
@@ -83,7 +83,7 @@ export default function EditClientModal({
               onChange={(e) =>
                 setFormData({ ...formData, lastName: e.target.value })
               }
-              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-800"
               required
             />
             <p className="mt-1 text-xs text-gray-500">
@@ -107,7 +107,7 @@ export default function EditClientModal({
               onChange={(e) =>
                 setFormData({ ...formData, phone: e.target.value })
               }
-              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-800"
               placeholder="π.χ. 69xxxxxxxx"
             />
             <p className="mt-1 text-xs text-gray-500">
@@ -120,7 +120,7 @@ export default function EditClientModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-2 text-sm border rounded hover:bg-gray-50"
+              className="px-3 py-2 text-sm border rounded hover:cursor-pointer"
               disabled={busy}
             >
               Ακύρωση
@@ -128,7 +128,7 @@ export default function EditClientModal({
             <button
               type="submit"
               disabled={busy}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-teal-800 text-white rounded hover:cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               aria-live="polite"
             >
               {busy ? (

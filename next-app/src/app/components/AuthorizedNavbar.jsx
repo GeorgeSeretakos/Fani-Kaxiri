@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { Menu, X, LogOut } from "lucide-react";
 
 export default function AuthorizedNavbar({
-                                           role,
-                                           showLogout = true,
-                                           logoutAction = "/api/logout",
-                                         }) {
+role,
+showLogout = true,
+logoutAction = "/api/logout",
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
@@ -26,7 +26,7 @@ export default function AuthorizedNavbar({
   return (
     <>
       {/* NAVBAR */}
-      <nav className="fixed top-0 inset-x-0 z-50 bg-teal-800/95 backdrop-blur border-b border-white/10">
+      <nav className="fixed top-0 inset-x-0 z-50 bg-black backdrop-blur border-b border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Brand (left) */}
@@ -51,7 +51,7 @@ export default function AuthorizedNavbar({
                   <button
                     type="submit"
                     className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 active:bg-white/15 transition
-                               focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-800"
+                               focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 hover:cursor-pointer"
                     title="Αποσύνδεση"
                   >
                     <LogOut className="w-4 h-4" />

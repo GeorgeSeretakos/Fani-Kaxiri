@@ -2,7 +2,7 @@
 
 import AddClientModal from "../components/admin/AddClientModal";
 import ClientsTable from "../components/admin/ClientsTable";
-import {useEffect, useMemo, useState} from "react";
+import { useEffect, useMemo, useState } from "react";
 import ClientFilters from "../components/admin/ClientFilters";
 import { Plus } from "lucide-react";
 
@@ -10,7 +10,7 @@ export default function AdminPage() {
   const [clients, setClients] = useState([]);
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("lastName"); // 'lastName' | 'updatedAt'
-  const [sortDir, setSortDir] = useState("desc"); // 'asc' | 'desc'
+  const [sortDir, setSortDir] = useState("asc"); // 'asc' | 'desc'
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
@@ -50,9 +50,10 @@ export default function AdminPage() {
       arr.sort((a, b) => {
         const A = (a.lastName || "").toString();
         const B = (b.lastName || "").toString();
-        // localeCompare for Greek + case-insensitive
-        return A.localeCompare(B, "el", { sensitivity: "base" }) * dir ||
-          (a.firstName || "").localeCompare((b.firstName || ""), "el", { sensitivity: "base" }) * dir;
+        return (
+          A.localeCompare(B, "el", { sensitivity: "base" }) * dir ||
+          (a.firstName || "").localeCompare(b.firstName || "", "el", { sensitivity: "base" }) * dir
+        );
       });
     } else if (sortBy === "updatedAt") {
       arr.sort((a, b) => {
@@ -74,33 +75,32 @@ export default function AdminPage() {
       <header className="bg-white border-b">
         <div className="py-6 px-12">
           <div className="flex flex-col gap-3">
-
-            {/* Row 1: Title + Add | Counts */}
+            {/* Row 1: Title + Count (left) | Add (right) */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div>
-                  <h2 className="text-xl font-semibold">Πελάτες</h2>
-                </div>
+              {/* Left: Title + total + add */}
+              <div className="flex items-end gap-3">
+                <h2 className="text-xl font-semibold leading-none">Πελάτες</h2>
+                {/* Add button */}
                 <button
                   type="button"
                   onClick={() => setShowModal(true)}
-                  className="p-1 rounded hover:bg-gray-100 text-gray-600"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-white hover:cursor-pointer"
                   title="Νέος πελάτης"
                   aria-label="Νέος πελάτης"
                 >
-                  <Plus className="w-5 h-5"/>
+                  <Plus className="h-4 w-4 block"/>
                 </button>
-              </div>
 
-              {/* Counts (total + shown) */}
-              <div className="flex items-center gap-2 text-xs sm:text-sm text-zinc-600">
-                <span className="inline-flex items-center rounded-full bg-zinc-100 px-2 py-1">
+              </div>
+              {/* Total indicator */}
+              <span
+                className="inline-flex h-8 items-center rounded-full bg-gray-900 px-3 text-xs sm:text-sm text-white">
                   Σύνολο: <span className="ml-1 font-semibold">{clients.length}</span>
                 </span>
-              </div>
             </div>
 
-            {/* Row 2: Search + Sort | Reset */}
+
+            {/* Row 2: Search + Sort */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-2">
               <div className="flex-1 w-full">
                 <ClientFilters
@@ -113,11 +113,9 @@ export default function AdminPage() {
                 />
               </div>
             </div>
-
           </div>
         </div>
       </header>
-
 
       {/* Content */}
       <main>
@@ -133,18 +131,7 @@ export default function AdminPage() {
             {errorMsg}
           </div>
         ) : !sorted.length ? (
-          <div className="bg-white border border-zinc-200 rounded-lg p-8 text-center max-w-6xl mx-auto my-6">
-            <p className="text-sm text-zinc-600">Δεν βρέθηκαν πελάτες.</p>
-            <div className="mt-4">
-              <button
-                onClick={() => setShowModal(true)}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-              >
-                <Plus className="w-4 h-4"/>
-                <span>Προσθήκη πελάτη</span>
-              </button>
-            </div>
-          </div>
+          <p className="text-sm text-zinc-600 text-center py-12">Δεν βρέθηκαν πελάτες.</p>
         ) : (
           <ClientsTable clients={sorted}/>
         )}

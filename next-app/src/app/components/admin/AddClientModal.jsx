@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 export default function AddClientModal({ onClose, onClientAdded }) {
   const [form, setForm] = useState({
@@ -11,16 +12,12 @@ export default function AddClientModal({ onClose, onClientAdded }) {
     phone: "",
   });
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState("");     // optional info message
-  const [errorMsg, setErrorMsg] = useState(""); // inline errors
+  const [errorMsg, setErrorMsg] = useState(""); // inline errors only (no generic status)
 
   const firstInputRef = useRef(null);
 
   useEffect(() => {
-    // focus first field
     firstInputRef.current?.focus();
-
-    // close on Esc
     const onKey = (e) => e.key === "Escape" && onClose?.();
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -34,7 +31,6 @@ export default function AddClientModal({ onClose, onClientAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg("");
-    setStatus("");
 
     if (emailsMismatch) {
       setErrorMsg("Τα email δεν ταιριάζουν.");
@@ -85,7 +81,7 @@ export default function AddClientModal({ onClose, onClientAdded }) {
               type="text"
               value={form.firstName}
               onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-800"
               required
             />
             <p className="mt-1 text-xs text-gray-500">Το μικρό όνομα του πελάτη.</p>
@@ -101,7 +97,7 @@ export default function AddClientModal({ onClose, onClientAdded }) {
               type="text"
               value={form.lastName}
               onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-800"
               required
             />
             <p className="mt-1 text-xs text-gray-500">Το επίθετο του πελάτη.</p>
@@ -117,7 +113,7 @@ export default function AddClientModal({ onClose, onClientAdded }) {
               type="email"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-800"
               required
             />
             <p className="mt-1 text-xs text-gray-500">Το email επικοινωνίας του πελάτη.</p>
@@ -134,7 +130,7 @@ export default function AddClientModal({ onClose, onClientAdded }) {
               value={form.confirmEmail}
               onChange={(e) => setForm({ ...form, confirmEmail: e.target.value })}
               className={`mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 ${
-                emailsMismatch ? "border-red-300 focus:ring-red-500" : "focus:ring-blue-500"
+                emailsMismatch ? "border-red-300 focus:ring-red-500" : "focus:ring-teal-800"
               }`}
               required
             />
@@ -154,7 +150,7 @@ export default function AddClientModal({ onClose, onClientAdded }) {
               inputMode="tel"
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-800"
               placeholder="π.χ. 69xxxxxxxx"
             />
             <p className="mt-1 text-xs text-gray-500">Προσθέστε κινητό ή σταθερό τηλέφωνο.</p>
@@ -172,16 +168,17 @@ export default function AddClientModal({ onClose, onClientAdded }) {
             <button
               type="submit"
               disabled={loading || emailsMismatch}
-              className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60"
+              aria-busy={loading}
+              className="px-4 py-2 text-sm bg-teal-800 text-white rounded hover:bg-teal-900 disabled:opacity-60 inline-flex items-center gap-2"
             >
-              {loading ? "Δημιουργία..." : "Προσθήκη"}
+              {loading && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}
+              Προσθήκη
             </button>
           </div>
         </form>
 
-        {/* Status / Error */}
+        {/* Error only (no generic status) */}
         {errorMsg && <p className="mt-3 text-sm text-red-600">{errorMsg}</p>}
-        {status && !errorMsg && <p className="mt-3 text-sm text-gray-600">{status}</p>}
       </div>
     </div>
   );
