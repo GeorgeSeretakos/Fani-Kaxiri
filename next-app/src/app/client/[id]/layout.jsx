@@ -12,7 +12,7 @@ export default async function ClientLayout({ children }) {
       <AuthorizedNavbar role="client" showLogout logoutAction="/api/logout" />
 
       {/* Page content (offset for fixed navbar height) */}
-      <main className="pt-16">{children}</main>
+      <main>{children}</main>
     </div>
   );
 }

@@ -12,7 +12,7 @@ export default async function AdminLayout({ children }) {
       <AuthorizedNavbar role="admin" />
 
       {/* Page content (offset for fixed navbar) */}
-      <main className="pt-16">{children}</main>
+      <main>{children}</main>
     </div>
   );
 }

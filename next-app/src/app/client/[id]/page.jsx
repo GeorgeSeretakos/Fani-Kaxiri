@@ -29,6 +29,7 @@ export default async function ClientPage({ params }) {
       lastName: true,
       phone: true,
       createdAt: true,
+      updatedAt: true,
       documents: {
         select: {
           id: true,

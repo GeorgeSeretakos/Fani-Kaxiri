@@ -26,7 +26,7 @@ export default function ClientInfoCard({
       : "-";
 
   return (
-    <div className="border-b-4 border-gray-100 p-6 flex flex-col md:flex-row gap-6 md:justify-between">
+    <div className="border-b-4 border-gray-100 py-6 px-12 flex flex-col md:flex-row gap-6 md:justify-between">
       {/* Left: Client info */}
       <div className="flex items-start gap-4 md:flex-1">
         <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-semibold text-lg shrink-0">
