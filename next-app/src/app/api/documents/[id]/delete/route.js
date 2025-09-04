@@ -1,6 +1,8 @@
 import prismaClient from "../../../../../../lib/prismaClient";
 import { deleteFromStorage } from "../../../../../utils/storageServer";
 
+export const runtime = "nodejs";
+
 export async function DELETE(req, { params }) {
   const { id } = await params;
 
