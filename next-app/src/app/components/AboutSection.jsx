@@ -49,7 +49,15 @@ ctaLink = "",
 
         {/* Content */}
         <div className="w-full md:flex-1">
-          {!fullWidthTitle && <h2 className="title-teal mb-6">{title}</h2>}
+          {!fullWidthTitle && (
+            <h2
+              className="title-teal mb-6"
+              // allow simple HTML like <br>; normalize common </br> to <br>
+              dangerouslySetInnerHTML={{
+                __html: typeof title === "string" ? title.replace(/<\/br>/gi, "<br>") : title,
+              }}
+            />
+          )}
 
           {/* Description */}
           <div className="leading-relaxed space-y-4">

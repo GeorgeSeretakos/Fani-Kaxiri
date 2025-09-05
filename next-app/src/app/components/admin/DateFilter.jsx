@@ -4,6 +4,12 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { el } from "date-fns/locale";
+import { format } from "date-fns";
+
+function ymdLocal(date) {
+  // Returns YYYY-MM-DD in local timezone
+  return format(date, "yyyy-MM-dd");
+}
 
 export default function DateFilter({ setDateFilter }) {
   const [from, setFrom] = React.useState(null);
@@ -12,8 +18,8 @@ export default function DateFilter({ setDateFilter }) {
   React.useEffect(() => {
     setDateFilter((prev) => ({
       ...prev,
-      from: from ? from.toISOString().split("T")[0] : undefined,
-      to: to ? to.toISOString().split("T")[0] : undefined,
+      from: from ? ymdLocal(from) : undefined,
+      to: to ? ymdLocal(to) : undefined,
     }));
   }, [from, to, setDateFilter]);
 
@@ -23,24 +29,14 @@ export default function DateFilter({ setDateFilter }) {
         <DatePicker
           label="Από"
           value={from}
-          onChange={(newValue) => setFrom(newValue)}
-          slotProps={{
-            textField: {
-              size: "small",
-              fullWidth: true,
-            },
-          }}
+          onChange={setFrom}
+          slotProps={{ textField: { size: "small", fullWidth: true } }}
         />
         <DatePicker
           label="Έως"
           value={to}
-          onChange={(newValue) => setTo(newValue)}
-          slotProps={{
-            textField: {
-              size: "small",
-              fullWidth: true,
-            },
-          }}
+          onChange={setTo}
+          slotProps={{ textField: { size: "small", fullWidth: true } }}
         />
       </div>
     </LocalizationProvider>

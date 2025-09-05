@@ -27,7 +27,7 @@ export default function AboutPage() {
         />
 
         <AboutSection
-          title="Η Διαδρομή & Η Προσέγγισή μου"
+          title={'Η Διαδρομή & <br> Η Προσέγγισή μου'}
           image="/images/tonia/1.jpg"
           fullWidthTitle={false}
           reverse
@@ -67,7 +67,7 @@ export default function AboutPage() {
         <AboutSection
           title="Μαρία Κοκορέ - Υπέυθυνη Ανάπτυξης"
           fullWidthTitle={false}
-          image="/images/maria/0.jpg"
+          image="/images/maria/1.jpg"
           description={[
             `Ονομάζομαι Κοκορέ Μαρία και πάντα με ενδιέφερε η ανθρώπινη επαφή και η ουσιαστική επικοινωνία με τους ανθρώπους.`,
             `Στην επαγγελματική μου πορεία έχω εργαστεί σε εμπορικές και εισαγωγικές εταιρείες, σε πολυεθνική κινητής τηλεφωνίας

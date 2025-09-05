@@ -5,7 +5,7 @@ import { el } from "date-fns/locale";
 
 export default function DocumentList({ documents, onDownload, onDelete }) {
   if (Object.keys(documents).length === 0)
-    return <p className="text-gray-500 text-center py-12">Δεν έχετε προσθέσει ακόμη έγγραφα σε αυτή την κατηγορία.</p>;
+    return <p className="text-gray-500 text-center py-12">Δεν έχουν προστεθεί ακόμη έγγραφα σε αυτή την κατηγορία.</p>;
 
   return (
     <div className="">

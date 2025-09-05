@@ -24,11 +24,11 @@ export default function NlpSection() {
           </p>
         </div>
 
-        <div className="relative w-full h-[300px] md:h-auto rounded-xl overflow-hidden shadow-lg">
+        <div className="relative w-full rounded-xl overflow-hidden shadow-lg">
           <img
             src="/images/general/nlp.png"
             alt="NLP"
-            className="object-cover"
+            className="w-full h-full object-cover"
           />
         </div>
       </div>
