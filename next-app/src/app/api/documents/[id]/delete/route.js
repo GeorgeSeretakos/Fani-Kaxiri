@@ -24,7 +24,7 @@ export async function DELETE(req, { params }) {
     });
 
     // Ενημέρωσε updatedAt του χρήστη
-    await prisma.user.update({
+    await prismaClient.user.update({
       where: { id: doc.ownerId },
       data: { updatedAt: new Date() },
     });
