@@ -1,8 +1,11 @@
 // app/api/logout/route.js
 import { NextResponse } from "next/server";
 
-export async function POST() {
-  const res = NextResponse.redirect(new URL("/login", process.env.NEXT_PUBLIC_BASE_URL));
+export async function POST(req) {
+  const res = NextResponse.redirect(
+    new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || req.url),
+    { status: 303 } // <- force GET on redirect
+  );
 
   res.cookies.set("token", "", {
     httpOnly: true,
