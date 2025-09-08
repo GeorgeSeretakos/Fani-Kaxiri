@@ -29,7 +29,7 @@ export default function Contact() {
                 </ul>
               </div>
               <div className="mb-4">
-                <strong>Τηλέφωνο</strong>
+                <strong>Τηλέφωνα</strong>
                 <ul className="list-disc pl-5">
                   <li>213 0478 022</li>
                   <li>6932762720</li>
