@@ -2,6 +2,7 @@ import { verifyClient } from "../../api/_lib/auth";
 import UnauthorizedRedirect from "@/app/components/UnauthorizedRedirect";
 import AuthorizedNavbar from "@/app/components/AuthorizedNavbar";
 
+export const metadata = { robots: { index: false, follow: false } };
 export default async function ClientLayout({ children }) {
   const client = await verifyClient();
   if (!client) return <UnauthorizedRedirect />;
