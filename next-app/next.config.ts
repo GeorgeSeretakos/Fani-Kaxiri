@@ -3,14 +3,12 @@ import path from "path";
 import fs from "fs";
 
 const nextConfig: NextConfig = {
-    // Optional: Ensure `public/uploads` exists
+    trailingSlash: true,
     webpack: (config) => {
         const uploadDir = path.join(process.cwd(), "public", "uploads");
-        if (!fs.existsSync(uploadDir)) {
-            fs.mkdirSync(uploadDir, { recursive: true });
-        }
+        if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
         return config;
     },
 };
-
 export default nextConfig;
+
