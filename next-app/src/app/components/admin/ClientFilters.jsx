@@ -2,19 +2,19 @@
 import { ChevronDown, ChevronUp, RotateCcw } from "lucide-react";
 
 export default function ClientFilters({
-                                        search,
-                                        setSearch,
-                                        sortBy,
-                                        setSortBy,
-                                        sortDir,
-                                        setSortDir,
-                                      }) {
+search,
+setSearch,
+sortBy,
+setSortBy,
+sortDir,
+setSortDir,
+}) {
   const toggleDir = () => setSortDir((d) => (d === "asc" ? "desc" : "asc"));
 
   const handleReset = () => {
     setSearch("");
     setSortBy("lastName");
-    setSortDir("desc"); // API default
+    setSortDir("asc"); // API default
   };
 
   return (

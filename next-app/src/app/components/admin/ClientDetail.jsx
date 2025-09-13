@@ -10,10 +10,13 @@ import DocumentList from "./DocumentList";
 
 import { deleteClient, updateClient } from "../../../services/clients";
 import {
+  requestUpload,
   uploadToStorage,
   getDownloadUrl,
-  deleteDocumentAtomic, uploadDocumentAtomicClient,
+  deleteDocument, finalizeUpload,
 } from "../../../services/documents";
+import {router} from "next/client";
+import {useRouter} from "next/navigation";
 
 export default function ClientDetail({ client, mode = "admin" }) {
   const [activeTab, setActiveTab] = useState("diet");
@@ -29,6 +32,9 @@ export default function ClientDetail({ client, mode = "admin" }) {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: client.firstName || "",
@@ -77,21 +83,25 @@ export default function ClientDetail({ client, mode = "admin" }) {
   }, [clientData.documents, activeTab, dateFilter]);
 
 
-  // --- Handlers (admin only) ---
   const handleDeleteClient = async () => {
-    if (!confirm("Θέλετε σίγουρα να διαγράψετε τον πελάτη?\n" +
-      "\n" +
-      "Πρόκειται να διαγράψετε οριστικά τα προσωπικά στοιχεία " +
-      "καθώς επίσης και όλα τα αρχεία που αφορούν τον πελάτη!")) return;
+    if (
+      !confirm(
+        "Θέλετε σίγουρα να διαγράψετε τον πελάτη?\n\n" +
+        "Πρόκειται να διαγράψετε οριστικά τα προσωπικά στοιχεία " +
+        "καθώς επίσης και όλα τα αρχεία που αφορούν τον πελάτη!"
+      )
+    ) return;
+
     try {
-      await deleteClient(clientData.id);
+      await deleteClient(clientData.id); // if it resolves, consider it done
       alert("Ο πελάτης διαγράφηκε επιτυχώς!");
-      window.location.href = "/admin";
+      window.location.assign("/admin"); // hard reload avoids any stale state
     } catch (err) {
       console.error(err);
       alert("Σφάλμα κατά τη διαγραφή πελάτη");
     }
   };
+
 
   const handleEditSave = async () => {
     try {
@@ -119,15 +129,31 @@ export default function ClientDetail({ client, mode = "admin" }) {
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!file) return setStatus("Επιλέξτε αρχείο.");
+
     try {
-      setStatus("Ανέβασμα αρχείου...");
-      const doc = await uploadDocumentAtomicClient({
+      setStatus("Δημιουργία upload URL...");
+      // STEP 1: presign (NO DB write)
+      const { uploadUrl, filePath } = await requestUpload({
         clientId: clientData.id,
-        file,
-        type: docType,
-        date,
-        description,
+        fileName: file.name,
       });
+
+      setStatus("Ανέβασμα αρχείου...");
+      // STEP 2: upload to B2
+      await uploadToStorage(uploadUrl, file);
+
+      setStatus("Οριστικοποίηση...");
+      // STEP 3: finalize (verify in B2 → write DB)
+      const { doc } = await finalizeUpload({
+        clientId: clientData.id,
+        fileName: file.name,
+        type: docType,
+        description,
+        date,
+        filePath,
+      });
+
+      // Only now append to UI
       setClientData((prev) => ({
         ...prev,
         documents: [
@@ -135,6 +161,7 @@ export default function ClientDetail({ client, mode = "admin" }) {
           { ...doc, date: new Date(doc.date).toISOString() },
         ],
       }));
+
       setStatus("✅ Επιτυχής μεταφόρτωση!");
       setIsUploadOpen(false);
     } catch (err) {
@@ -142,6 +169,8 @@ export default function ClientDetail({ client, mode = "admin" }) {
       setStatus("❌ Σφάλμα στην μεταφόρτωση");
     }
   };
+
+
 
 
   const handleDownload = async (docId) => {
@@ -163,7 +192,7 @@ export default function ClientDetail({ client, mode = "admin" }) {
       "\n" +
       "Η διαγραφή είναι οριστική!")) return;
     try {
-      await deleteDocumentAtomic(id);
+      await deleteDocument(id);
       setClientData((prev) => ({
         ...prev,
         documents: prev.documents.filter((d) => d.id !== id),

@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { verifyAdmin } from "../../../_lib/auth";
-import {deleteClientAtomic} from "../../../../../services/documents";
 import {getRequestMeta, maskEmail} from "../../../../../utils/apiUtils";
+import prismaClient from "../../../../../../lib/prismaClient";
+import {deleteFromStorage} from "../../../../../utils/storageServer";
 
 const prisma = new PrismaClient();
 
@@ -84,66 +85,48 @@ export async function GET(req, { params }) {
   }
 }
 
-
 export async function DELETE(req, { params }) {
-  const { ip, ua } = getRequestMeta(req);
-
-  // Auth
   const admin = await verifyAdmin();
   if (!admin) {
-    console.warn("clients.delete.unauthorized", { ip, ua });
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401, headers: { "Cache-Control": "no-store" } }
-    );
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Params
-  const clientId = Number(params?.id);
-  if (!Number.isFinite(clientId)) {
-    console.warn("clients.delete.invalid_id", { id: params?.id, ip, ua });
-    return NextResponse.json(
-      { error: "Invalid id" },
-      { status: 400, headers: { "Cache-Control": "no-store" } }
-    );
-  }
+  const { id } = await params;
+  const clientId = Number(id);
 
   try {
-    console.info("clients.delete.attempt", { clientId, ip, ua });
+    // Collect file paths first (we'll need them after DB deletion)
+    const docs = await prismaClient.document.findMany({
+      where: { ownerId: clientId },
+      select: { filePath: true },
+    });
+    const paths = [...new Set(docs.map(d => d.filePath).filter(Boolean))];
 
-    await deleteClientAtomic(clientId);
+    // 1) Delete from DB first (atomic for user + docs)
+    await prismaClient.$transaction([
+      prismaClient.document.deleteMany({ where: { ownerId: clientId } }),
+      prismaClient.user.delete({ where: { id: clientId } }),
+    ]);
 
-    console.info("clients.delete.success", { clientId, ip, ua });
-    return NextResponse.json(
-      { success: true },
-      { status: 200, headers: { "Cache-Control": "no-store" } }
-    );
-  } catch (err) {
-    if (err?.message === "STORAGE_DELETE_FAILED") {
-      console.error("clients.delete.storage_delete_failed", {
-        clientId,
-        message: err?.message,
-        stack: err?.stack,
-        ip,
-        ua,
+    // 2) Delete from Backblaze B2 (via S3 API util), in small batches
+    const failed = [];
+    const batch = 5;
+    for (let i = 0; i < paths.length; i += batch) {
+      const chunk = paths.slice(i, i + batch);
+      const results = await Promise.allSettled(chunk.map(p => deleteFromStorage(p)));
+      results.forEach((res, idx) => {
+        const key = chunk[idx];
+        if (res.status === "fulfilled") {
+          if (res.value !== true) failed.push(key); // verification failed
+        } else {
+          failed.push(key); // exception
+        }
       });
-      return NextResponse.json(
-        { error: "Failed to delete files from storage" },
-        { status: 500, headers: { "Cache-Control": "no-store" } }
-      );
     }
 
-    console.error("clients.delete.error", {
-      clientId,
-      message: err?.message,
-      stack: err?.stack,
-      ip,
-      ua,
-    });
-    return NextResponse.json(
-      { error: "Failed to delete client" },
-      { status: 500, headers: { "Cache-Control": "no-store" } }
-    );
+    return NextResponse.json({ success: true, storageFailed: failed });
+  } catch (err) {
+    return NextResponse.json({ error: "Failed to delete client" }, { status: 500 });
   }
 }
 

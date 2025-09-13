@@ -1,18 +1,11 @@
-// services/documents.js  (CLIENT-ONLY)
-import { logClientError } from "../utils/logClientError";
-
-/** ---- Old 2-step flow helpers (keep if you still use presigned URLs) ---- */
-export async function requestUpload({ clientId, fileName, type, date, description }) {
-  const res = await fetch(`/api/documents/upload`, {
-    method: "POST",
-    body: JSON.stringify({ clientId, fileName, type, date, description }),
-  });
-  if (!res.ok) throw new Error("Failed to request upload URL");
-  return res.json(); // { ok, uploadUrl, filePath?, doc? } depending on route
-}
+import {logClientError} from "../utils/logClientError";
 
 export async function uploadToStorage(uploadUrl, file) {
-  const res = await fetch(uploadUrl, { method: "PUT", body: file });
+  console.log("[upload:start]", { uploadUrl, size: file.size });
+  const res = await fetch(uploadUrl, {
+    method: "PUT",
+    body: file,
+  });
   if (!res.ok) {
     const text = await res.text();
     await logClientError("uploadToStorage", {
@@ -25,34 +18,44 @@ export async function uploadToStorage(uploadUrl, file) {
   return true;
 }
 
-/** ---- One-call atomic upload (multipart/form-data) ---- */
-export async function uploadDocumentAtomicClient({ clientId, file, type, date, description }) {
-  const fd = new FormData();
-  fd.append("clientId", String(clientId));
-  fd.append("type", type);
-  fd.append("date", date || "");
-  fd.append("description", description || "");
-  fd.append("file", file, file.name);
 
-  const res = await fetch("/api/documents/upload", { method: "POST", body: fd });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok || !data?.ok) throw new Error(data?.error || "Upload failed");
-  return data.doc; // normalized doc from API
-}
-
-/** ---- Download URL helper ---- */
 export async function getDownloadUrl(docId) {
   const res = await fetch(`/api/documents/${docId}/download`);
   if (!res.ok) throw new Error("Failed to get download URL");
   return res.json(); // { url }
 }
 
-/** ---- Delete (client -> API) ---- */
 export async function deleteDocument(id) {
-  const res = await fetch(`/api/documents/${id}/delete`, { method: "DELETE" });
+  const res = await fetch(`/api/documents/${id}/delete`, {
+    method: "DELETE",
+  });
+
   if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(text || "Failed to delete document");
+    throw new Error("Failed to delete document");
   }
-  return true;
+
+  return await res.text();
+}
+
+// services/documents.js
+export async function requestUpload({ clientId, fileName }) {
+  const res = await fetch("/api/documents/upload/presign", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ clientId, fileName }),
+  });
+  const json = await res.json();
+  if (!res.ok || !json?.ok) throw new Error(json?.error || "Presign failed");
+  return json; // { ok, uploadUrl, filePath }
+}
+
+export async function finalizeUpload({ clientId, fileName, type, description, date, filePath }) {
+  const res = await fetch("/api/documents/upload/finalize", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ clientId, fileName, type, description, date, filePath }),
+  });
+  const json = await res.json();
+  if (!res.ok || !json?.ok) throw new Error(json?.error || "Finalize failed");
+  return json; // { ok, doc }
 }
