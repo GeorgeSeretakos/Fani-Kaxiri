@@ -9,7 +9,7 @@ export default function PhilosophySection() {
             <span className="font-bold">
               Η Φιλοσοφία της <br />
             </span>
-            <span className="font-great-vibes text-4xl sm:text-5xl">
+            <span className="font-great-vibes !font-semibold text-4xl sm:text-5xl">
               Believe in yourself
             </span>
           </h2>
