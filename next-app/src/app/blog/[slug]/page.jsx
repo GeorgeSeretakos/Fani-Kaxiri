@@ -6,9 +6,6 @@ export default function BlogSlugPage({ params }) {
   const { slug } = params;
   const post = posts.find((p) => p.slug === slug);
 
-  console.log("Slug: ", slug);
-  console.log("Post: ", post);
-
   if (!post) {
     return (
       <div className="max-w-3xl mx-auto py-12 px-4">
