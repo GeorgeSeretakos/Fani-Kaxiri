@@ -25,14 +25,14 @@ export default function BlogCard({ post }) {
 
       {/* Περιεχόμενο */}
       <div className="flex flex-col flex-1 p-4">
-        <h4 className="text-gray-900 font-semibold mb-2">{post.title}</h4>
+        <h4 className="text-gray-900 font-semibold">{post.title}</h4>
 
         {targetUrl && (
           <Link
             href={targetUrl}
             target={isPdf ? "_blank" : "_self"}
             rel={isPdf ? "noopener noreferrer" : undefined}
-            className="inline-block mt-4 text-teal-600 font-medium hover:underline"
+            className="inline-block mt-auto text-teal-600 font-medium hover:underline"
           >
             {isPdf ? "Προβολή PDF →" : "Μάθε περισσότερα →"}
           </Link>

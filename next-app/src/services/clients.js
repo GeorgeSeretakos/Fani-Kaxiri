@@ -1,4 +1,3 @@
-// src/services/clients.js
 export async function deleteClient(clientId) {
   const res = await fetch(`/api/admin/clients/${clientId}`, {
     method: "DELETE",

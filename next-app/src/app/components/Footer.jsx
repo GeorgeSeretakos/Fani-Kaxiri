@@ -108,7 +108,6 @@ export default function Contact() {
                   name="message"
                   rows={5}
                   placeholder="Μήνυμα"
-                  required
                   className="w-full p-2 rounded bg-black/30 border border-gray-700 text-white"
                 />
 

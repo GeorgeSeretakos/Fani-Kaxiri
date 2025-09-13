@@ -15,6 +15,7 @@
 
 .font-great-vibes {
   font-family: var(--font-great-vibes);
+  @apply text-2xl font-normal;
 }
 
 
@@ -70,3 +71,44 @@ li {
 .title-black {
   @apply text-3xl font-bold mb-6 text-black;
 }
+
+
+
+
+/* ===== Blog Styles ===== */
+.blog section {
+  @apply bg-teal-50 border border-teal-200 rounded-lg p-4 mb-6;
+}
+
+.blog p {
+  @apply text-sm md:text-base text-gray-800 mb-4;
+}
+
+/* Lists */
+.blog ul, .blog ol {
+  @apply pl-5 mb-4 list-disc; /* ορατά bullets */
+}
+.blog li {
+  @apply mb-1;
+}
+
+/* Table */
+.blog table {
+  @apply w-full border border-gray-300 bg-gray-50 rounded-md overflow-hidden mb-6;
+  border-collapse: collapse;
+}
+.blog th, .blog td {
+  @apply border border-gray-300 p-2 text-sm md:text-base text-gray-700;
+}
+.blog tr:nth-child(even) {
+  @apply bg-white;
+}
+
+/* Subheadings */
+.blog h3 {
+  @apply text-lg font-semibold mt-6 mb-3 text-teal-800;
+}
+.blog h4 {
+  @apply text-base font-semibold mt-4 mb-2 text-gray-900;
+}
+

@@ -1,6 +1,6 @@
 import Footer from "../components/Footer";
 import IntroSection from "../components/IntroSection";
-import Navbar from "../components/Navbar"; // το generic component
+import Navbar from "../components/Navbar";
 
 const officeImages = [
   "/images/office/4.webp",
@@ -26,7 +26,7 @@ export default function OfficePage() {
           paragraph={
             <>
               <div>
-                Στη <strong className="font-great-vibes text-2xl">Believe in Yourself</strong> σε υποδεχόμαστε σε έναν φωτεινό και ζεστό χώρο, στην περιοχή της Κηφισιάς. Το γραφείο μας έχει σχεδιαστεί για να προσφέρει ηρεμία και εμπιστοσύνη από την πρώτη στιγμή, χωρίς πρόβλημα parking!
+                Στη <strong className="font-great-vibes">Believe in Yourself</strong> σε υποδεχόμαστε σε έναν φωτεινό και ζεστό χώρο, στην περιοχή της Κηφισιάς. Το γραφείο μας έχει σχεδιαστεί για να προσφέρει ηρεμία και εμπιστοσύνη από την πρώτη στιγμή, χωρίς πρόβλημα parking!
               </div>
 
               <div className="mt-6">

@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 
 export async function verifyAdmin() {
   try {
-    const cookieStore = await cookies(); // ✅ must await
-    const token = cookieStore.get("token")?.value; // name of your cookie
+    const cookieStore = await cookies();
+    const token = cookieStore.get("token")?.value;
 
     if (!token) return null;
 

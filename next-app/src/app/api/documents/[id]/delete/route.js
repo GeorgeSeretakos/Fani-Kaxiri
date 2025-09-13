@@ -1,35 +1,25 @@
-import prismaClient from "../../../../../../lib/prismaClient";
-import { deleteFromStorage } from "../../../../../utils/storageServer";
+import { deleteDocumentAtomic } from "../../../../../services/documents";
 
-export async function DELETE(req, { params }) {
-  const { id } = await params;
+export async function DELETE(_req, { params }) {
+  const id = Number(params?.id);
+  if (!Number.isFinite(id)) {
+    return new Response("Invalid id", { status: 400 });
+  }
 
   try {
-    // Βρες το document
-    const doc = await prismaClient.document.findUnique({
-      where: { id } ,
+    await deleteDocumentAtomic(id);
+    return new Response("Document deleted successfully", {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
     });
-    if (!doc) {
+  } catch (err) {
+    if (err?.message === "DOC_NOT_FOUND") {
       return new Response("Document not found", { status: 404 });
     }
-
-    // Σβήσε από Supabase storage
-    await deleteFromStorage(doc.filePath);
-
-    // Σβήσε από DB
-    await prismaClient.document.delete({
-      where: { id }
-    });
-
-    // Ενημέρωσε updatedAt του χρήστη
-    await prismaClient.user.update({
-      where: { id: doc.ownerId },
-      data: { updatedAt: new Date() },
-    });
-
-    return new Response("Document deleted successfully", { status: 200 });
-  } catch (err) {
-    console.error("Delete error:", err);
+    if (err?.message === "STORAGE_DELETE_FAILED") {
+      return new Response("Failed to delete file from storage", { status: 500 });
+    }
+    console.error("Delete document error:", err);
     return new Response("Server error", { status: 500 });
   }
 }

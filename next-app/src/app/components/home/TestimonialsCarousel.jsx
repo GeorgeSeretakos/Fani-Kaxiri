@@ -30,7 +30,7 @@ export default function TestimonialsCarousel() {
             slidesPerView={1}
             pagination={{ clickable: true }}
             loop={true}
-            autoplay={{ delay: 4000 }}
+            autoplay={{ delay: 10000 }}
             breakpoints={{
               640: { slidesPerView: 1 },
               768: { slidesPerView: 2, spaceBetween: 20 },

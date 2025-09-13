@@ -10,10 +10,9 @@ import DocumentList from "./DocumentList";
 
 import { deleteClient, updateClient } from "../../../services/clients";
 import {
-  requestUpload,
   uploadToStorage,
   getDownloadUrl,
-  deleteDocument,
+  deleteDocumentAtomic, uploadDocumentAtomicClient,
 } from "../../../services/documents";
 
 export default function ClientDetail({ client, mode = "admin" }) {
@@ -37,7 +36,8 @@ export default function ClientDetail({ client, mode = "admin" }) {
     phone: client.phone || "",
   });
 
-  // inside ClientDetail
+  const [notifyLoading, setNotifyLoading] = useState(false);
+
   useEffect(() => {
     if (isUploadOpen) {
       // modal just opened → reset everything
@@ -120,16 +120,14 @@ export default function ClientDetail({ client, mode = "admin" }) {
     e.preventDefault();
     if (!file) return setStatus("Επιλέξτε αρχείο.");
     try {
-      setStatus("Δημιουργία upload URL...");
-      const { uploadUrl, doc } = await requestUpload({
+      setStatus("Ανέβασμα αρχείου...");
+      const doc = await uploadDocumentAtomicClient({
         clientId: clientData.id,
-        fileName: file.name,
-        date: date,
+        file,
         type: docType,
+        date,
         description,
       });
-      setStatus("Ανέβασμα αρχείου...");
-      await uploadToStorage(uploadUrl, file);
       setClientData((prev) => ({
         ...prev,
         documents: [
@@ -144,6 +142,7 @@ export default function ClientDetail({ client, mode = "admin" }) {
       setStatus("❌ Σφάλμα στην μεταφόρτωση");
     }
   };
+
 
   const handleDownload = async (docId) => {
     try {
@@ -164,7 +163,7 @@ export default function ClientDetail({ client, mode = "admin" }) {
       "\n" +
       "Η διαγραφή είναι οριστική!")) return;
     try {
-      await deleteDocument(id);
+      await deleteDocumentAtomic(id);
       setClientData((prev) => ({
         ...prev,
         documents: prev.documents.filter((d) => d.id !== id),
@@ -174,8 +173,6 @@ export default function ClientDetail({ client, mode = "admin" }) {
     }
   };
 
-  const [notifyLoading, setNotifyLoading] = useState(false);
-
   const handleNotifyUser = async () => {
     if (!clientData?.email) {
       alert("Δεν υπάρχει email για τον πελάτη.");
@@ -183,27 +180,36 @@ export default function ClientDetail({ client, mode = "admin" }) {
     }
     try {
       setNotifyLoading(true);
-      const res = await fetch("/api/notify", {
+
+      const res = await fetch("/api/notify/", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           to: clientData.email,
           name: `${clientData.firstName || ""} ${clientData.lastName || ""}`.trim(),
-          // subject / message omitted to use your API defaults
         }),
       });
-      if (!res.ok) throw new Error(await res.text());
-      setStatus("✅ Η ειδοποίηση στάλθηκε επιτυχώς.");
+
+      const ct = res.headers.get("content-type") || "";
+      const data = ct.includes("application/json") ? await res.json() : null;
+
+      if (res.ok && data?.ok) {
+        setStatus("✅ Η ειδοποίηση στάλθηκε επιτυχώς.");
+        alert("Η ειδοποίηση στάλθηκε επιτυχώς.");
+      } else {
+        const msg = data?.error || "Σφάλμα στην αποστολή ειδοποίησης.";
+        setStatus("❌ " + msg);
+        alert(msg);
+      }
     } catch (err) {
       console.error(err);
-      setStatus("❌ Σφάλμα στην αποστολή ειδοποίησης.");
+      setStatus("❌ Σφάλμα δικτύου. Δοκίμασε ξανά.");
+      alert("Σφάλμα δικτύου. Δοκίμασε ξανά.");
     } finally {
       setNotifyLoading(false);
     }
   };
 
-
-  // console.log("Client data passed to ClientInfoCard: ", clientData);
 
   return (
     <div>

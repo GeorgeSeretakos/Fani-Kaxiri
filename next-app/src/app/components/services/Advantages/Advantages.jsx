@@ -12,7 +12,7 @@ export default function Advantages() {
         <div className={styles["advantage-grid"]}>
           <div
             className={`${styles.card} ${styles.large}`}
-            style={{backgroundImage: "url('/images/food/14.webp')"}}
+            style={{backgroundImage: "url('/images/food/17.webp')"}}
           >
             <div className={styles.content}>
               <h3>Ρεαλισμός</h3>
@@ -24,7 +24,7 @@ export default function Advantages() {
 
           <div
             className={`${styles.card} ${styles.small}`}
-            style={{backgroundImage: "url('/images/food/20.webp')"}}
+            style={{backgroundImage: "url('/images/food/1.webp')"}}
           >
             <div className={styles.content}>
               <h3>Ισορροπία</h3>
@@ -35,7 +35,7 @@ export default function Advantages() {
 
           <div
             className={`${styles.card} ${styles.small}`}
-            style={{backgroundImage: "url('/images/food/12.webp')"}}
+            style={{backgroundImage: "url('/images/food/18.webp')"}}
           >
             <div className={styles.content}>
               <h3>Προσαρμογή</h3>
