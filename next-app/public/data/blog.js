@@ -6,7 +6,7 @@ const posts = [
   {
     slug: "banana-frozen-yogurt",
     title: "Παγωτό Γιαούρτι Μπανάνα",
-    image: "/images/blog/1.jpg",
+    image: "/images/blog/1.webp",
     category: "recipes",
     contentHtml: `
     <section>
@@ -69,7 +69,7 @@ const posts = [
   {
     slug: "lemon-garlic-chicken-green-beans",
     title: "Λεμονάτο Κοτόπουλο με Σκόρδο & Πράσινα Φασολάκια",
-    image: "/images/blog/2.jpg", // άλλαξέ το αν έχεις διαφορετικό asset
+    image: "/images/blog/2.webp", // άλλαξέ το αν έχεις διαφορετικό asset
     category: "recipes",
     contentHtml: `
     <section>
@@ -143,7 +143,7 @@ const posts = [
   {
     slug: "tiramisu-overnight-oats",
     title: "Tiramisu Overnight Oats",
-    image: "/images/blog/3.jpg",
+    image: "/images/blog/3.webp",
     category: "recipes",
     contentHtml: `
     <section>
@@ -214,7 +214,7 @@ const posts = [
   {
     slug: "shrimp-bulgur-salad",
     title: "Σαλάτα με Γαρίδες, Πλιγούρι και Dressing Ταχινιού",
-    image: "/images/blog/4.jpg",
+    image: "/images/blog/4.webp",
     category: "recipes",
     contentHtml: `
     <section>
