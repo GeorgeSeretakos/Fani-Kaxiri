@@ -28,7 +28,7 @@ export default function AboutPage() {
 
         <AboutSection
           title={'Η Διαδρομή & <br> Η Προσέγγισή μου'}
-          image="/images/tonia/1.jpg"
+          image="/images/tonia/1.webp"
           fullWidthTitle={false}
           reverse
           description={[
@@ -45,7 +45,7 @@ export default function AboutPage() {
         <AboutSection
           title="Η Δράση μου"
           fullWidthTitle={false}
-          image="/images/tonia/2.jpg"
+          image="/images/tonia/2.webp"
           description={[
             `Η διατροφή δεν περιορίζεται στο γραφείο. Γι’ αυτό και συνεργάζομαι με εταιρείες και οργανισμούς στην Ελλάδα και το εξωτερικό, σχεδιάζοντας πρακτικά προγράμματα για εργαζόμενους με διαφορετικές ανάγκες.`,
 

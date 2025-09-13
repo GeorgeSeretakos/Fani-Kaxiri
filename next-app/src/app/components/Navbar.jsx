@@ -51,12 +51,12 @@ export default function Navbar() {
           {/* Desktop Links */}
           <div className="hidden sm:flex sm:space-x-4 lg:space-x-5 items-center font-semibold text-xs lg:text-sm">
             <NavItem href="/" label="Αρχική Σελίδα" />
-            <NavItem href="/about-us" label="Ποιοί Είμαστε" />
-            <NavItem href="/services" label="Υπηρεσίες" />
-            <NavItem href="/office" label="Ο Χώρος" />
-            <NavItem href="/blog" label="Blog" />
-            <NavItem href="/contact" label="Επικοινωνία" />
-            <NavItem href="/login" label="Σύνδεση" />
+            <NavItem href="/about-us/" label="Ποιοί Είμαστε" />
+            <NavItem href="/services/" label="Υπηρεσίες" />
+            <NavItem href="/office/" label="Ο Χώρος" />
+            <NavItem href="/blog/" label="Blog" />
+            <NavItem href="/contact/" label="Επικοινωνία" />
+            <NavItem href="/login/" label="Σύνδεση" />
           </div>
 
           {/* Mobile Menu Button */}
@@ -78,12 +78,12 @@ export default function Navbar() {
         <div className="sm:hidden bg-white shadow-md border-t">
           <div className="flex flex-col space-y-2 px-4 py-4 font-medium">
             <NavItem href="/" label="Αρχική Σελίδα" />
-            <NavItem href="/about-us" label="Ποιοί Είμαστε" />
-            <NavItem href="/office" label="Ο Χώρος" />
-            <NavItem href="/services" label="Υπηρεσίες" />
-            <NavItem href="/blog" label="Blog" />
-            <NavItem href="/contact" label="Επικοινωνία" />
-            <NavItem href="/login" label="Σύνδεση" />
+            <NavItem href="/about-us/" label="Ποιοί Είμαστε" />
+            <NavItem href="/office/" label="Ο Χώρος" />
+            <NavItem href="/services/" label="Υπηρεσίες" />
+            <NavItem href="/blog/" label="Blog" />
+            <NavItem href="/contact/" label="Επικοινωνία" />
+            <NavItem href="/login/" label="Σύνδεση" />
           </div>
         </div>
       )}

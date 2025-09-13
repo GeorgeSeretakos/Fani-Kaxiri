@@ -22,7 +22,8 @@ export async function POST(req) {
       return NextResponse.json({ error: "`to` is required" }, { status: 400, headers: { "Cache-Control": "no-store" } });
     }
 
-    const site = process.env.NEXT_PUBLIC_SITE_URL || "https://tonia-kaparelioti.gr";
+    const base = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://tonia-kaparelioti.gr").replace(/\/+$/, "");
+    const site = `${base}/login`;
     const firstName = (name || "").split(" ")[0] || "πελάτη";
 
     const finalFrom = "Believe in Yourself <no-reply@tonia-kaparelioti.gr>";

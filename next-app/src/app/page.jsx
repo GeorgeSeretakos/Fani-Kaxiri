@@ -20,7 +20,7 @@ export default function Home() {
           <PhilosophySection />
           <AboutSection
               title="Η διατροφή σου δεν είναι το πρόβλημα — Είναι το σύμπτωμα"
-              image="/images/tonia/5.jpg"
+              image="/images/tonia/5.webp"
               reverse={false}
               fullWidthTitle={false}
               description={[

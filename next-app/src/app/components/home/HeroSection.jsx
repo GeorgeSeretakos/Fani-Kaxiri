@@ -3,7 +3,7 @@ export default function HeroSection() {
     <section className="relative h-[95vh]">
       {/* Background Image */}
       <img
-        src="/images/tonia/7.jpg"
+        src="/images/tonia/7.webp"
         alt="Tonia Kaparelioti"
         className="absolute inset-0 w-full h-full object-cover object-top z-0"
       />
