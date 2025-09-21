@@ -61,11 +61,11 @@ li {
 }
 
 .btn {
-  @apply inline-block px-6 py-2 rounded-xl text-white bg-teal-800 hover:bg-teal-700 transition font-bold;
+  @apply inline-block px-6 py-2 rounded-xl text-white bg-[#4A2A23] hover:bg-[#A6653A] transition font-bold;
 }
 
 .title-teal {
-  @apply text-3xl font-bold mb-6 text-teal-800;
+  @apply text-3xl font-bold mb-6 text-[#4A2A23];
 }
 
 .title-black {

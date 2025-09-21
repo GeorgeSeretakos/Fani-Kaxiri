@@ -1,16 +1,14 @@
-import Image from "next/image";
-
 export default function SocialSection() {
   return (
     <section>
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-start gap-4">
         {/* top line */}
-        {/*<div className="w-16 h-1 bg-black"></div>*/}
+        <div className="w-16 h-0.25 bg-white"></div>
 
         {/* icons */}
         <div className="flex gap-4">
           <a
-            href="https://www.facebook.com/profile.php?id=100092161156931&locale=el_GR"
+            href="https://www.facebook.com/profile.php?id=100003586060421&locale=el_GR"
             className="w-12 h-12 rounded-full flex items-center justify-center"
             aria-label="Facebook"
           >
@@ -19,11 +17,10 @@ export default function SocialSection() {
               alt="Facebook"
               width={40}
               height={40}
-              // style={{backgroundColor: "white", border: "2px solid white", borderRadius: "50%"}}
             />
           </a>
           <a
-            href="https://www.instagram.com/t_kaparelioti_wellness/"
+            href="https://www.instagram.com/nutridiarybyfani/"
             className="w-12 h-12 rounded-full flex items-center justify-center"
             aria-label="Instagram"
           >
@@ -32,11 +29,10 @@ export default function SocialSection() {
               alt="Instagram"
               width={40}
               height={40}
-              // style={{backgroundColor: "white", border: "2px solid white", borderRadius: "50%"}}
             />
           </a>
           <a
-            href="https://www.tiktok.com/@t_kaparelioti_wellness"
+            href="https://www.tiktok.com/@nutridiarybyfani"
             className="w-12 h-12 rounded-full flex items-center justify-center"
             aria-label="TikTok"
           >
@@ -45,20 +41,7 @@ export default function SocialSection() {
               alt="TikTok"
               width={40}
               height={40}
-              style={{border: "2px solid white", backgroundColor: "white", borderRadius: "50%"}}
-            />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/tonia-kaparelioti-676296292/"
-            className="w-12 h-12 rounded-full flex items-center justify-center"
-            aria-label="LinkedIn"
-          >
-            <img
-              src="/icons/linkedin.png"
-              alt="LinkedIn"
-              width={40}
-              height={40}
-              // style={{backgroundColor: "white", border: "2px solid white", borderRadius: "50%"}}
+              // style={{border: "2px solid white", backgroundColor: "white", borderRadius: "50%"}}
             />
           </a>
         </div>

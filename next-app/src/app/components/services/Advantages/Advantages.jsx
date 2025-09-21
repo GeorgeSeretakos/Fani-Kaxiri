@@ -4,55 +4,60 @@ export default function Advantages() {
   return (
     <section className="py-12">
       <div className={styles.container}>
-        <h2 className="text-center title-black">
-          Η προσέγγισή μας στη διατροφή
-        </h2>
-
+        <h2 className="text-center title-teal">Η προσέγγισή μου στη διατροφή</h2>
 
         <div className={styles["advantage-grid"]}>
+          {/* Large */}
           <div
             className={`${styles.card} ${styles.large}`}
-            style={{backgroundImage: "url('/images/food/17.webp')"}}
+            style={{ backgroundImage: "url('/images/general/3.jpg')" }}
           >
             <div className={styles.content}>
-              <h3>Ρεαλισμός</h3>
+              <h3>Εξατομίκευση</h3>
               <p>
-                Με διάρκεια, χωρίς να περιμένω να έχει αρχή και τέλος. Σχεδιάζουμε κάτι που θα αντέξει — όχι κάτι που θα σε εξαντλήσει.
+                Καμία έτοιμη δίαιτα. Το πλάνο χτίζεται πάνω στις προτιμήσεις και την
+                καθημερινότητά σου.
               </p>
             </div>
           </div>
 
+          {/* Small */}
           <div
             className={`${styles.card} ${styles.small}`}
-            style={{backgroundImage: "url('/images/food/1.webp')"}}
+            style={{ backgroundImage: "url('/images/general/13.jpg')" }}
           >
             <div className={styles.content}>
-              <h3>Ισορροπία</h3>
+              <h3>Προσαρμοστικότητα</h3>
               <p>
-                Οι απολαύσεις χωράνε! Σημαντικό: να μάθω και πως να το απολαμβάνω χωρίς τύψεις              </p>
-            </div>
-          </div>
-
-          <div
-            className={`${styles.card} ${styles.small}`}
-            style={{backgroundImage: "url('/images/food/18.webp')"}}
-          >
-            <div className={styles.content}>
-              <h3>Προσαρμογή</h3>
-              <p>
-                Κάθε πλάνο προσαρμόζεται στις ανάγκες σου: ωράριο, ρυθμός ζωής, δραστηριότητες, ταξίδια.
+                On-the-go αλλαγές και ρεαλιστικές λύσεις για να ‘δουλεύει’ στη ζωή σου.
               </p>
             </div>
           </div>
 
+          {/* Small */}
           <div
-            className={`${styles.card} ${styles.large}`}
-            style={{backgroundImage: "url('/images/food/11.webp')"}}
+            className={`${styles.card} ${styles.small}`}
+            style={{ backgroundImage: "url('/images/general/5.jpg')" }}
           >
             <div className={styles.content}>
-              <h3>Σταθερή Υποστήριξη</h3>
+              <h3>Ψυχολογική ματιά</h3>
               <p>
-                Επικοινωνούμε όποτε νιώθεις ότι το χρειάζεσαι και πέραν των ραντεβού. Με ενδιαφέρει πώς περνάς, αν σου ταίριαξε το πλάνο, δεν περιμένω να έχω νέα σου στο επόμενο ραντεβού.              </p>
+                Κατανόηση της σχέσης συναισθήματος–διατροφής, χωρίς ενοχές και
+                απαγορεύσεις.
+              </p>
+            </div>
+          </div>
+
+          {/* Large */}
+          <div
+            className={`${styles.card} ${styles.large}`}
+            style={{ backgroundImage: "url('/images/general/12.jpg')" }}
+          >
+            <div className={styles.content}>
+              <h3>Συνεχής υποστήριξη</h3>
+              <p>
+                Ανατροφοδότηση σε κάθε συνεδρία και καθοδήγηση μεταξύ των ραντεβού.
+              </p>
             </div>
           </div>
         </div>

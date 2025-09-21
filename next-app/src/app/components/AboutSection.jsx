@@ -16,7 +16,7 @@ ctaLink = "",
     <section className="max-w-6xl m-auto px-4 py-12 rounded-xl">
       {/* Full width title */}
       {fullWidthTitle && (
-        <div className="bg-[#1C86D1] p-4 rounded-none md:rounded-xl text-xl sm:text-2xl font-bold text-white text-center mb-8 w-screen relative left-1/2 right-1/2 -ml-[50vw] md:w-auto md:relative md:left-0 md:right-0 md:ml-0">
+        <div className="p-4 rounded-none md:rounded-xl text-xl sm:text-2xl font-bold text-white text-center mb-8 w-screen relative left-1/2 right-1/2 -ml-[50vw] md:w-auto md:relative md:left-0 md:right-0 md:ml-0">
           {title}
         </div>
       )}

@@ -1,11 +1,9 @@
-import Image from "next/image";
-
 export default function QuoteSection() {
   return (
     <section className="relative h-[60vh]">
       {/* Background Image */}
       <img
-        src="/images/food/5.webp"
+        src="/images/general/2.jpg"
         alt="Quote Background"
         className="absolute inset-0 fill w-full h-full object-cover object-center z-0"
       />
@@ -16,7 +14,7 @@ export default function QuoteSection() {
       {/* Text content */}
       <div className="relative z-20 h-full text-white flex items-center justify-center">
         <h2 className="font-semibold max-w-3/4 text-center">
-          Η διατροφή δεν είναι μόνο θέμα θερμίδων, είναι θέμα συναισθημάτων
+          Your body is not a problem to fix. It's a place to love.
         </h2>
       </div>
     </section>
