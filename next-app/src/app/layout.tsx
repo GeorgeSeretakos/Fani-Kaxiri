@@ -30,6 +30,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         `}
         >
 
+        <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            hidden
+        >
+            <input type="hidden" name="form-name" value="contact"/>
+            <input type="text" name="firstName"/>
+            <input type="text" name="lastName"/>
+            <input type="email" name="email"/>
+            <input type="tel" name="phone"/>
+            <textarea name="message"/>
+            <input type="checkbox" name="bookIntent" />
+            <input type="checkbox" name="acceptPolicy" />
+            <input type="text" name="bot-field"/>
+        </form>
+
         <Navbar/>
         <main className="mt-20 sm:mt-24">{children}</main>
         <Footer/>

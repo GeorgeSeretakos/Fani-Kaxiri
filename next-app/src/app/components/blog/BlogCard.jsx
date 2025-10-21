@@ -13,7 +13,7 @@ export default function BlogCard({ post }) {
       : null;
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col h-72">
+    <div className="rounded-lg shadow-md overflow-hidden flex flex-col h-72">
       {/* Εικόνα → ΜΟΝΟ για news */}
       <div className="relative w-full h-[55%]">
         <img
@@ -32,7 +32,7 @@ export default function BlogCard({ post }) {
             href={targetUrl}
             target={isPdf ? "_blank" : "_self"}
             rel={isPdf ? "noopener noreferrer" : undefined}
-            className="inline-block mt-auto text-teal-600 font-medium hover:underline"
+            className="inline-block mt-auto font-medium hover:underline"
           >
             {isPdf ? "Προβολή PDF →" : "Μάθε περισσότερα →"}
           </Link>

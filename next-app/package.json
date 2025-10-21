@@ -6,8 +6,7 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
-    "build": "next build",
-    "postbuild": "next-sitemap"
+    "build": "next build"
   },
   "dependencies": {
     "keen-slider": "^6.8.6",

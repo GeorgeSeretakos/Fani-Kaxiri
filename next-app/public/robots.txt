@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /client/
-Disallow: /api/
-Sitemap: https://tonia-kaparelioti.gr/sitemap.xml

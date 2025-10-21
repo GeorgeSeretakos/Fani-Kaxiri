@@ -9,10 +9,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 export default function TestimonialsCarousel() {
-  const reviewUrl = "https://share.google/PwkEt4rsWRqU4TMQr";
+  const reviewUrl = "https://www.google.com/search?sca_esv=5e581a6313517469&rlz=1C1KNTJ_elGR1073GR1075&sxsrf=AE3TifNYKW0FjN49Ls0bH2Nj5iC79YV8Zw:1761047573094&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E6HgjZUc8aUICv_Mv78omF29idZ79jnVYobC4ZMt6_EAhDy0qSmDLs7Ds12131PWFbkaX-dV9gSFj3QpiwFGDcRu_5ZzDR8icF5k_WTzC-9u8Skr_z8sAHZY53JR1NKl9No7SuzEzwFi_-aNvFxMFDAN1Y40GSawAPfx0pcWeJBW8QjjDGVgQYc22RNmdFPK4f1-j_k%3D&q=%CE%A6%CE%B1%CE%BD%CE%AE+%CE%9A%CE%B1%CE%BE%CE%B7%CF%81%CE%AE+-+%CE%94%CE%B9%CE%B1%CE%B9%CF%84%CE%BF%CE%BB%CF%8C%CE%B3%CE%BF%CF%82,+%CE%94%CE%B9%CE%B1%CF%84%CF%81%CE%BF%CF%86%CE%BF%CE%BB%CF%8C%CE%B3%CE%BF%CF%82+%CE%9A%CF%81%CE%B9%CF%84%CE%B9%CE%BA%CE%AD%CF%82&sa=X&ved=2ahUKEwiopJu4nbWQAxWFBdsEHW_mGqgQ0bkNegQIIxAD&cshid=1761047612889952&biw=1440&bih=791&dpr=1.5";
 
   return (
-    <div className="relative bg-gradient-to-b from-[#E8D8C3] to-[#FAF6EF] px-4 flex justify-center items-center py-12 sm:py-16 md:py-20">
+    <div className="relative px-4 flex justify-center items-center">
       {/* Content */}
       <div className="z-10 w-full">
         {/* Section Title + CTA */}
@@ -30,9 +30,9 @@ export default function TestimonialsCarousel() {
             href={reviewUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex px-4 py-2 rounded-xl bg-[#A6653A] text-white hover:bg-[#4A2A23] transition self-start sm:self-auto"
+            className="btn self-start sm:self-auto"
           >
-            Αφήστε κριτική
+            Άφησε κριτική
           </Link>
         </div>
 

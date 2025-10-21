@@ -19,15 +19,8 @@
 }
 
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: white;
+  background: #FAF6EF;
   color: black;
   font-family: var(--font-sans);
 }
@@ -61,8 +54,12 @@ li {
 }
 
 .btn {
-  @apply inline-block px-6 py-2 rounded-xl text-white bg-[#4A2A23] hover:bg-[#A6653A] transition font-bold;
+  @apply inline-block px-6 py-2 rounded-xl font-bold
+  text-xs sm:text-sm md:text-base
+  text-white bg-[#4A2A23] hover:bg-[#A6653A] hover:cursor-pointer
+  transition;
 }
+
 
 .title-teal {
   @apply text-3xl font-bold mb-6 text-[#4A2A23];
@@ -75,18 +72,22 @@ li {
 
 
 
-/* ===== Blog Styles ===== */
+/* ===== Blog Styles (recipes) — adjusted for warmer brown palette ===== */
 .blog section {
-  @apply bg-teal-50 border border-teal-200 rounded-lg p-4 mb-6;
+  @apply bg-[#F3E9E2] border border-[#DCC4B0] rounded-lg p-4 mb-6;
 }
 
 .blog p {
-  @apply text-sm md:text-base text-gray-800 mb-4;
+  @apply text-sm md:text-base mb-4 text-[#2B1C18];
+}
+
+.blog a {
+  @apply text-[#A6653A] underline-offset-2 hover:underline;
 }
 
 /* Lists */
 .blog ul, .blog ol {
-  @apply pl-5 mb-4 list-disc; /* ορατά bullets */
+  @apply pl-5 mb-4 list-disc text-[#2B1C18];
 }
 .blog li {
   @apply mb-1;
@@ -94,21 +95,22 @@ li {
 
 /* Table */
 .blog table {
-  @apply w-full border border-gray-300 bg-gray-50 rounded-md overflow-hidden mb-6;
+  @apply w-full border border-[#DCC4B0] bg-[#F3E9E2] rounded-md overflow-hidden mb-6;
   border-collapse: collapse;
 }
 .blog th, .blog td {
-  @apply border border-gray-300 p-2 text-sm md:text-base text-gray-700;
+  @apply border border-[#DCC4B0] p-2 text-sm md:text-base text-[#2B1C18];
 }
 .blog tr:nth-child(even) {
-  @apply bg-white;
+  @apply bg-[#FAF6EF];
 }
 
 /* Subheadings */
 .blog h3 {
-  @apply text-lg font-semibold mt-6 mb-3 text-teal-800;
+  @apply text-lg font-semibold mt-6 mb-3 text-[#4A2A23];
 }
 .blog h4 {
-  @apply text-base font-semibold mt-4 mb-2 text-gray-900;
+  @apply text-base font-semibold mt-4 mb-2 text-[#4A2A23];
 }
+
 

@@ -4,9 +4,8 @@ import AboutSection from "../components/AboutSection";
 export default function AboutPage() {
   return (
     <main>
-      {/* 1) Intro */}
       <IntroSection
-        image="/images/general/13.jpg"
+        image="/images/fani/11.jpg"
         title="Η Διατροφολόγος"
         paragraph={
           <>
@@ -26,10 +25,9 @@ export default function AboutPage() {
         }
       />
 
-      {/* 2) AboutSection — Βιογραφικό / Πορεία */}
       <AboutSection
         title="Γνώρισε τη Φανή"
-        image="/images/fani/1.jpg"
+        image="/images/fani/10.jpg"
         fullWidthTitle={false}
         reverse={false}
         description={[
@@ -46,10 +44,9 @@ export default function AboutPage() {
         ctaLink="/services"
       />
 
-      {/* 3) AboutSection — Προσέγγιση / Φιλοσοφία */}
       <AboutSection
         title="Προσέγγιση & φιλοσοφία"
-        image="/images/fani/2.jpg"
+        image="/images/fani/3.jpg"
         fullWidthTitle={false}
         reverse={true}
         description={[

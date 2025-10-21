@@ -2,12 +2,12 @@ import SocialSection from "../components/home/SocialSection";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#4A2A23] text-[#FAF6EF]">
+    <footer className="text-[#4A2A23]">
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 pt-12">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
           <h2 className="text-2xl md:text-3xl font-semibold">Επικοινώνησε μαζί μας</h2>
-          <p className="text-[#E8D8C3]">
+          <p className="text-[#A6653A] font-semibold">
             Κλείσε ραντεβού ή στείλε μας μήνυμα· θα χαρούμε να βοηθήσουμε.
           </p>
         </div>
@@ -16,12 +16,14 @@ export default function Footer() {
       {/* Row: Contact Info + Form */}
       <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Contact Info */}
-        <section className="rounded-2xl ring-1 ring-[#E8D8C3]/30 p-6">
+        <section className="rounded-2xl ring-1 ring-[#E8D8C3]/30 bg-[#4A2A23] text-[#FAF6EF] p-6">
           <h3 className="text-lg font-semibold">Στοιχεία επικοινωνίας</h3>
           <div className="mt-4 space-y-4 text-sm">
             <div>
               <div className="font-semibold">Διεύθυνση</div>
-              <div className="mt-1 text-[#E8D8C3]">Λεωφ. Μαραθώνος 73, Άνοιξη 145 69</div>
+              <div className="mt-1 text-[#E8D8C3]">
+                Λεωφ. Μαραθώνος 73, Άνοιξη 145 69
+              </div>
             </div>
 
             <div>
@@ -44,7 +46,10 @@ export default function Footer() {
               <div className="font-semibold">Email</div>
               <ul className="mt-1 space-y-1">
                 <li>
-                  <a href="mailto:fkaxiridiet@gmail.com" className="hover:underline text-[#E8D8C3]">
+                  <a
+                    href="mailto:fkaxiridiet@gmail.com"
+                    className="hover:underline text-[#E8D8C3]"
+                  >
                     fkaxiridiet@gmail.com
                   </a>
                 </li>
@@ -58,10 +63,12 @@ export default function Footer() {
           </div>
         </section>
 
-        {/* Quick Form — transparent inputs */}
-        <section className="rounded-2xl ring-1 ring-[#E8D8C3]/30 p-6">
+        {/* Quick Form */}
+        <section className="rounded-2xl ring-1 ring-[#E8D8C3]/30 bg-[#4A2A23] text-[#FAF6EF] p-6">
           <h3 className="text-lg font-semibold">Γρήγορη φόρμα</h3>
-          <p className="mt-1 text-sm text-[#E8D8C3]">Συμπλήρωσε τα βασικά και θα σε καλέσουμε.</p>
+          <p className="mt-1 text-sm text-[#E8D8C3]">
+            Συμπλήρωσε τα βασικά και θα σε καλέσουμε.
+          </p>
 
           <form
             name="footer-contact"
@@ -71,69 +78,81 @@ export default function Footer() {
             action="/thank-you"
             className="mt-5 space-y-4"
           >
-            <input type="hidden" name="form-name" value="footer-contact"/>
+            <input type="hidden" name="form-name" value="footer-contact" />
             <p hidden>
-              <label>Don’t fill this out: <input name="bot-field"/></label>
+              <label>
+                Don’t fill this out: <input name="bot-field" />
+              </label>
             </p>
 
-            {/* Row 1: first + last name */}
+            {/* Row 1 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 type="text"
                 name="firstName"
                 placeholder="Όνομα"
                 required
-                className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:ring-0 focus:border-[#FAF6EF]"
+                className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:border-[#FAF6EF]"
               />
               <input
                 type="text"
                 name="lastName"
                 placeholder="Επώνυμο"
                 required
-                className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:ring-0 focus:border-[#FAF6EF]"
+                className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:border-[#FAF6EF]"
               />
             </div>
 
-            {/* Row 2: phone + email */}
+            {/* Row 2 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 type="tel"
                 name="phone"
                 placeholder="Τηλέφωνο"
                 required
-                className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:ring-0 focus:border-[#FAF6EF]"
+                className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:border-[#FAF6EF]"
               />
               <input
                 type="email"
                 name="email"
                 placeholder="Email"
                 required
-                className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:ring-0 focus:border-[#FAF6EF]"
+                className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:border-[#FAF6EF]"
               />
             </div>
 
-            {/* Row 3: message */}
+            {/* Row 3 */}
             <textarea
               name="message"
               rows={4}
               placeholder="Μήνυμα"
-              className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:ring-0 focus:border-[#FAF6EF] resize-y"
+              className="w-full px-3 py-2 rounded-md bg-transparent text-white placeholder-white/70 border-b border-[#E6DDD3]/70 focus:outline-none focus:border-[#FAF6EF] resize-y"
             />
 
-            {/* Checkboxes + Submit aligned (button right on desktop) */}
+            {/* Checkboxes + Submit */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-col gap-2 text-xs text-[#E8D8C3]">
-                {/* New checkbox like Tonia's */}
                 <label className="inline-flex items-center gap-2">
-                  <input type="checkbox" name="bookIntent" className="accent-[#A6653A] scale-110"/>
+                  <input
+                    type="checkbox"
+                    name="bookIntent"
+                    className="accent-[#A6653A] scale-110"
+                  />
                   Επικοινωνώ για να κλείσω ραντεβού
                 </label>
 
-                {/* Accept policy */}
                 <label className="inline-flex items-center gap-2">
-                  <input type="checkbox" name="acceptPolicy" className="accent-[#A6653A] scale-110" required/>
+                  <input
+                    type="checkbox"
+                    name="acceptPolicy"
+                    className="accent-[#A6653A] scale-110"
+                    required
+                  />
                   Αποδέχομαι την{" "}
-                  <a href="/privacy-policy" className="text-[#FAF6EF] underline underline-offset-2 hover:no-underline">
+                  <a
+                    href="/privacy-policy"
+                    className="text-[#FAF6EF] underline underline-offset-2 hover:no-underline"
+                  >
                     Πολιτική Απορρήτου
                   </a>
                 </label>
@@ -141,15 +160,13 @@ export default function Footer() {
 
               <button
                 type="submit"
-                className="w-full sm:w-auto px-4 py-2 rounded-lg bg-[#FAF6EF] text-[#4A2A23] hover:opacity-90 transition text-center"
+                className="inline-block px-6 py-2 border-b text-white bg-[#4A2A23] hover:cursor-pointer transition font-bold"
               >
                 Αποστολή
               </button>
             </div>
           </form>
         </section>
-
-
       </div>
 
       {/* Full-width Map */}
@@ -158,7 +175,7 @@ export default function Footer() {
           title="Χάρτης γραφείου"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3138.210644423368!2d23.854599475857068!3d38.13529469131094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1752d33770e31%3A0x95bf7cf05ad7359c!2zzqbOsc69zq4gzprOsc6-zrfPgc6uIC0gzpTOuc6xzrnPhM6_zrvPjM6zzr_PgiwgzpTOuc6xz4TPgc6_z4bOv867z4zOs86_z4I!5e0!3m2!1sel!2sgr!4v1758316352377!5m2!1sel!2sgr"
           className="w-full h-[360px] md:h-[420px] border-0"
-          style={{border: 0}}
+          style={{ border: 0 }}
           loading="lazy"
           allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"
@@ -166,28 +183,23 @@ export default function Footer() {
       </section>
 
       {/* Bottom strip */}
-      <div className="border-t border-white/10">
+      <div className="border-t border-[#4A2A23]/10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
-        {/* Left: Logo + text (centered on mobile, inline on md+) */}
           <div className="w-full md:w-auto flex flex-col sm:flex-row items-center justify-center text-center md:text-left gap-3 text-sm">
-            <span className="font-semibold text-[#E8D8C3] leading-tight">
+            <span className="font-semibold text-[#4A2A23] leading-tight">
               &copy; 2025 Φανή Καξηρή.
               <br className="sm:hidden" />
               <span className="sm:ml-1">Όλα τα δικαιώματα διατηρούνται.</span>
             </span>
           </div>
 
-          {/* Right: Links (stacked + centered on mobile, inline on md+) */}
           <div className="w-full md:w-auto flex flex-col sm:flex-row items-center justify-center text-center gap-2 text-sm">
-            <a href="/privacy-policy" className="hover:underline">
+            <a href="/privacy-policy" className="hover:underline font-semibold text-[#4A2A23]">
               Πολιτική Απορρήτου
             </a>
           </div>
-
         </div>
       </div>
-
     </footer>
   );
 }

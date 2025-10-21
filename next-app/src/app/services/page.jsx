@@ -3,7 +3,6 @@ import ServicesPreview from "../components/ServicesPreview";
 import serviceSteps from "../../../public/data/serviceSteps";
 import AboutSection from "../components/AboutSection";
 import SplitColumnsWithImage from "../components/SplitColumnsWithImage";
-import VisitFrequencyNotice from "../components/home/VisitFrequencyNotice";
 import servicesCases from "../../../public/data/serviceCases";
 import FeatureGrid from "../components/FeatureGrid";
 
@@ -16,16 +15,15 @@ export default function ServicesPage() {
         paragraph={
           <>
             <p>
-              Επίλεξε τον τρόπο που σου ταιριάζει· εγώ προσαρμόζω το πλάνο στη
-              δική σου καθημερινότητα.
+              Επίλεξε τον τρόπο που σου ταιριάζει· εγώ προσαρμόζω το πλάνο στη δική σου καθημερινότητα.
             </p>
             <p className="mt-3">
-              Με ήρεμη, μη-τιμωρητική προσέγγιση και εργαλεία ενσυνειδητότητας,
-              σχεδιάζουμε βήμα–βήμα ρεαλιστικές αλλαγές. Είτε ζεις κοντά είτε
-              μακριά, μπορείς να δουλέψεις μαζί μου δια ζώσης ή online, με
-              σταθερή ανατροφοδότηση και καθοδήγηση.
+              Με μια ήρεμη, χωρίς ενοχές προσέγγιση, και μέσα από πρακτικά εργαλεία ενσυνειδητότητας, χτίζουμε μαζί βήμα–βήμα μικρές αλλά ουσιαστικές αλλαγές που ταιριάζουν στη δική σου καθημερινότητα.
             </p>
-          </>
+            <p className="mt-3">
+              Είτε βρίσκεσαι κοντά είτε μακριά, μπορούμε να συνεργαστούμε δια ζώσης ή online, με συνεχή ανατροφοδότηση και καθοδήγηση.
+            </p>
+            </>
         }
       />
 
@@ -48,10 +46,15 @@ export default function ServicesPage() {
           "Επανάληψη λιπομέτρησης",
           "Καταγραφή διατροφής: μέσω λογισμικού ή χειρόγραφου ημερολογίου",
         ]}
-        imageSrc="/images/general/12.jpg"
+        bulletIcon="/icons/bullet.png"
+        imageSrc="/images/general/17.jpg"
         imageAlt="Συνεδρία στον χώρο της Φανής Καξηρή"
       />
 
+      <FeatureGrid
+        title="Σε τι μπορώ να σε βοηθήσω"
+        items={servicesCases}
+      />
 
       <AboutSection
         title="Νευρική Ανορεξία"
@@ -101,16 +104,12 @@ export default function ServicesPage() {
         ]}
       />
 
-      <FeatureGrid
-        title="Σε τι μπορώ να σε βοηθήσω"
-        items={servicesCases}
-      />
 
       <AboutSection
         title="Yoga & Mindful Eating Retreat"
         image="/images/yoga/1.jpg"
         fullWidthTitle={false}
-        reverse={false}
+        reverse={true}
         description={[
           "Ένα βιωματικό Σαββατοκύριακο όπου <strong>γιόγκα</strong>, <strong>αναπνοή</strong> και <strong>Mindful Eating</strong> συναντιούνται. Αποσυνδέεσαι, ακούς τις ανάγκες του σώματός σου και μαθαίνεις πρακτικές για να τρέφεσαι με παρουσία και φροντίδα — χωρίς ενοχές ή «κανόνες».",
           "Κατάλληλο για <em>όλα τα επίπεδα</em>, σε μικρές ομάδες και γήινο, ήρεμο περιβάλλον — ιδανικό για reset σώματος και νου."
