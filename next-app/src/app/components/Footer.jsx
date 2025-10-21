@@ -78,7 +78,7 @@ export default function Footer() {
             action="/thank-you"
             className="mt-5 space-y-4"
           >
-            <input type="hidden" name="form-name" value="footer-contact" />
+            <input type="hidden" name="form-name" value="contact" />
             <p hidden>
               <label>
                 Don’t fill this out: <input name="bot-field" />
