@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function ThankYou() {
   return (
-    <main className="bg-black text-white min-h-screen flex flex-col items-center justify-center px-4 text-center">
-      <h1 className="text-3xl md:text-4xl font-bold mb-4">
+    <main className="min-h-screen flex flex-col items-center justify-center px-4 text-center">
+      <h1>
         Ευχαριστούμε για την επικοινωνία σας!
       </h1>
       <p className="mb-6">
