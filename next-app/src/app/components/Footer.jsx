@@ -71,7 +71,7 @@ export default function Footer() {
           </p>
 
           <form
-            name="footer-contact"
+            name="contact"
             method="POST"
             data-netlify="true"
             netlify-honeypot="bot-field"
