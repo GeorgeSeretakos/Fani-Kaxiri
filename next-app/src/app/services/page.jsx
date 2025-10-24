@@ -58,7 +58,7 @@ export default function ServicesPage() {
 
       <AboutSection
         title="Νευρική Ανορεξία"
-        image="/images/disorders/3.jpg"
+        image="/images/disorders/1.jpeg"
         fullWidthTitle={false}
         reverse={false}
         description={[
@@ -73,7 +73,7 @@ export default function ServicesPage() {
 
       <AboutSection
         title="Νευρική Βουλιμία"
-        image="/images/disorders/4.jpg"
+        image="/images/disorders/2.jpg"
         fullWidthTitle={false}
         reverse={true}
         description={[
@@ -90,7 +90,7 @@ export default function ServicesPage() {
 
       <AboutSection
         title="Αδηφαγική Διαταραχή"
-        image="/images/disorders/6.jpg"
+        image="/images/disorders/3.avif"
         fullWidthTitle={false}
         reverse={false}
         description={[

@@ -105,6 +105,43 @@ export default function PrivacyPolicyPage() {
             απώλεια ή αλλοίωση.
           </p>
         </li>
+
+        <li>
+          <h2 className="font-semibold">Πνευματικά δικαιώματα και πηγές πολυμέσων</h2>
+          <p className="mt-2">
+            Στην ιστοσελίδα έχουν χρησιμοποιηθεί φωτογραφίες από τις πλατφόρμες{" "}
+            <a
+              href="https://www.pexels.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              Pexels
+            </a>{" "}
+            και{" "}
+            <a
+              href="https://unsplash.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              Unsplash
+            </a>
+            , καθώς και εικονίδια από το{" "}
+            <a
+              href="https://www.freepik.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              Freepik
+            </a>
+            . Όλες οι παραπάνω πηγές ανήκουν στις δωρεάν εκδόσεις των αντίστοιχων
+            ιστοσελίδων και χρησιμοποιούνται σύμφωνα με τους όρους χρήσης και τις
+            άδειες που αυτές παρέχουν.
+          </p>
+        </li>
+
       </ol>
     </section>
   );
