@@ -3,7 +3,7 @@ export default function HeroSection() {
     <section className="relative h-[70vh] md:h-[80vh] min-h-[520px] md:min-h-[560px] w-full overflow-hidden">
       {/* Background image */}
       <img
-        src="/images/fani/6.png"
+        src="/images/fani/61.png"
         alt="Φανή Καξηρή - Διατροφολόγος"
         className="absolute inset-0 w-full h-full object-cover"
       />

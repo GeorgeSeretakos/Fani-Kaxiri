@@ -5,12 +5,12 @@ export default function IntroSection({
                                        poster,
                                        title,
                                        paragraph,
+                                       className = "", // <-- add this
                                      }) {
   const hasVideo = !!videoSrc;
 
   return (
-    <section className="relative text-white">
-      {/* Εικόνα ή Βίντεο + Τίτλος */}
+    <section className={`relative text-white ${className}`}>
       <div className="relative h-[60vh] flex items-center justify-center text-center">
         <div className="absolute inset-0">
           {hasVideo ? (
@@ -28,7 +28,7 @@ export default function IntroSection({
             <img
               src={image}
               alt="Background"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover translate-x-0 -translate-x-6 sm:translate-x-0"
             />
           )}
           <div className="absolute inset-0 bg-black/50"></div>
@@ -39,12 +39,9 @@ export default function IntroSection({
         </div>
       </div>
 
-      {/* Παράγραφος */}
       <div className="w-full px-4 py-12">
         <div className="max-w-6xl mx-auto">
-          <div className="text-gray-700 leading-relaxed">
-            {paragraph}
-          </div>
+          <div className="text-gray-700 leading-relaxed">{paragraph}</div>
         </div>
       </div>
     </section>

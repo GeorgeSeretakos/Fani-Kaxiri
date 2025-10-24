@@ -202,6 +202,24 @@ const posts = [
     </ul>
   `,
     externalUrl: null
+  },
+
+  {
+    slug: "yoga-mindful-eating-retreat",
+    title: "Yoga & Mindful Eating Retreat",
+    image: "/images/yoga/1.jpg",
+    category: "articles",
+    contentHtml: `
+    <p>Ένα βιωματικό Σαββατοκύριακο όπου <strong>γιόγκα</strong>, <strong>αναπνοή</strong> και <strong>Mindful Eating</strong> συναντιούνται. 
+    Αποσυνδέεσαι, ακούς τις ανάγκες του σώματός σου και μαθαίνεις πρακτικές για να τρέφεσαι με παρουσία και φροντίδα — χωρίς ενοχές ή «κανόνες».</p>
+    <p>Κατάλληλο για <em>όλα τα επίπεδα</em>, σε μικρές ομάδες και γήινο, ήρεμο περιβάλλον — ιδανικό για reset σώματος και νου.</p>
+    <ul>
+      <li>Μικρές ομάδες</li>
+      <li>Όλα τα επίπεδα</li>
+      <li>Πρακτικές Mindful Eating</li>
+    </ul>
+  `,
+    externalUrl: "https://www.facebook.com/events/710109801862006/?__cft__[0]=AZVM0GzgZdX5jT7TSOVcQg-dsL3MvJQKXD_9E-DwveEvvnKVDCrmVsvGxsabw8u57aYjzBmjtJtbMk4okiuSEvb-dwyi-e-7kaf0__XdcmCyjfoSqSxzt2GLCM4ISExhfP0qBnxZR2pJhCAi5InHwFN_Mzrg0cyeKKaxJHkU8VXtQpKwEld4qlSjXZBa-wMZbI0&__tn__=-UK-R"
   }
 
 ];

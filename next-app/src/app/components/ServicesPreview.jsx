@@ -11,7 +11,7 @@ export default function ServicesPreview({
                                           teaserHref,
                                         }) {
   return (
-    <section className="max-w-6xl mx-auto px-4 py-16">
+    <section className="max-w-6xl mx-auto px-4 py-8">
       {/* Header (desktop CTA only) */}
       <div className="flex items-end justify-between gap-4">
         <div>

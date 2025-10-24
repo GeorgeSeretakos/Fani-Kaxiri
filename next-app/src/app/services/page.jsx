@@ -47,7 +47,7 @@ export default function ServicesPage() {
           "Καταγραφή διατροφής: μέσω λογισμικού ή χειρόγραφου ημερολογίου",
         ]}
         bulletIcon="/icons/bullet.png"
-        imageSrc="/images/general/17.jpg"
+        imageSrc="/images/general/18.jpg"
         imageAlt="Συνεδρία στον χώρο της Φανής Καξηρή"
       />
 
@@ -102,25 +102,6 @@ export default function ServicesPage() {
           "Mindful Eating & απενοχοποίηση τροφών",
           "Πρακτικές, ρεαλιστικές επιλογές για την καθημερινότητα",
         ]}
-      />
-
-
-      <AboutSection
-        title="Yoga & Mindful Eating Retreat"
-        image="/images/yoga/1.jpg"
-        fullWidthTitle={false}
-        reverse={true}
-        description={[
-          "Ένα βιωματικό Σαββατοκύριακο όπου <strong>γιόγκα</strong>, <strong>αναπνοή</strong> και <strong>Mindful Eating</strong> συναντιούνται. Αποσυνδέεσαι, ακούς τις ανάγκες του σώματός σου και μαθαίνεις πρακτικές για να τρέφεσαι με παρουσία και φροντίδα — χωρίς ενοχές ή «κανόνες».",
-          "Κατάλληλο για <em>όλα τα επίπεδα</em>, σε μικρές ομάδες και γήινο, ήρεμο περιβάλλον — ιδανικό για reset σώματος και νου."
-        ]}
-        ticks={[
-          "Μικρές ομάδες",
-          "Όλα τα επίπεδα",
-          "Πρακτικές Mindful Eating"
-        ]}
-        ctaText="Δες ημερομηνίες στο Facebook"
-        ctaLink="https://www.facebook.com/events/710109801862006/?__cft__[0]=AZVM0GzgZdX5jT7TSOVcQg-dsL3MvJQKXD_9E-DwveEvvnKVDCrmVsvGxsabw8u57aYjzBmjtJtbMk4okiuSEvb-dwyi-e-7kaf0__XdcmCyjfoSqSxzt2GLCM4ISExhfP0qBnxZR2pJhCAi5InHwFN_Mzrg0cyeKKaxJHkU8VXtQpKwEld4qlSjXZBa-wMZbI0&__tn__=-UK-R"
       />
 
 
